@@ -79,12 +79,6 @@ export default function ThemeRegistry(props: IThemeRegistryProps) {
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Button
-          variant={"contained"}
-          onClick={() => setMode(mode === "dark" ? "light" : "dark")}
-        >
-          toggle theme
-        </Button>
         {children}
       </ThemeProvider>
     </CacheProvider>
