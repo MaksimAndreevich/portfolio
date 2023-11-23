@@ -1,37 +1,32 @@
 "use client";
 import createCache, { Options } from "@emotion/cache";
-import { useServerInsertedHTML } from "next/navigation";
 import { CacheProvider } from "@emotion/react";
-import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useServerInsertedHTML } from "next/navigation";
 import { ReactNode, useMemo, useState } from "react";
-import { createTheme } from "@mui/material/styles";
-import { green, purple } from "@mui/material/colors";
-import { Button } from "@mui/material";
 
 interface IThemeRegistryProps {
   options: Options;
   children: ReactNode;
 }
 
+// {
+//   palette: {
+//     mode: mode,
+//     primary: {
+//       main: lightBlue[500],
+//     },
+//     secondary: {
+//       main: blueGrey[500],
+//     },
+//   },
+// }
+
 export default function ThemeRegistry(props: IThemeRegistryProps) {
   const [mode, setMode] = useState<"light" | "dark">("light");
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: mode,
-          primary: {
-            main: green[500],
-          },
-          secondary: {
-            main: purple[500],
-          },
-        },
-      }),
-    [mode]
-  );
+  const theme = useMemo(() => createTheme({}), [mode]);
 
   const { options, children } = props;
 

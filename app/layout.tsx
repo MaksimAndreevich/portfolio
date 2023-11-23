@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
-import "../globals.css";
-import ThemeRegistry from "../components/ThemeRegistry";
-import Dashboard from "@/components/Dashboard";
 import { Box } from "@mui/material";
+import type { Metadata } from "next";
+import AppBar from "./ui/AppBar";
+import ThemeRegistry from "./ui/ThemeRegistry";
+import "./ui/global.css";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -18,12 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeRegistry options={{ key: "mui" }}>
-          {
-            <Box>
-              <Dashboard />
-              {children}
-            </Box>
-          }
+          <Box>
+            <AppBar />
+          </Box>
+          {children}
         </ThemeRegistry>
       </body>
     </html>
