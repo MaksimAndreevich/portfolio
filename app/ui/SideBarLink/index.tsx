@@ -16,7 +16,7 @@ const SideBarLink = ({ name, href, icon, disabled }: ISideBarLinkProps) => {
   const pathname = usePathname();
 
   return (
-    <Link key={name} href={href}>
+    <Link key={name} href={href} style={disabled && { pointerEvents: "none" }}>
       <ListItemButton selected={pathname === href} disabled={disabled}>
         <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText primary={name} />

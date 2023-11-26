@@ -37,13 +37,13 @@ const linksProjectPages: Array<ISideBarLinkProps> = [
   {
     name: "Word Cards",
     href: "/word-cards",
-    icon: <GitHubIcon />,
+    icon: <TranslateIcon />,
     disabled: true,
   },
   {
     name: "GitHub",
     href: "/git-hub",
-    icon: <TranslateIcon />,
+    icon: <GitHubIcon />,
     disabled: true,
   },
 ];
