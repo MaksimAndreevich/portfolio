@@ -5,21 +5,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
-interface ISideBarLinkProps {
+export interface ISideBarLinkProps {
   name: string;
-  key: string;
   href: string;
   icon: ReactNode;
+  disabled?: true;
 }
 
-const SideBarLink = ({ name, key, href, icon }: ISideBarLinkProps) => {
+const SideBarLink = ({ name, href, icon, disabled }: ISideBarLinkProps) => {
   const pathname = usePathname();
 
-  console.log(pathname);
-
   return (
-    <Link key={key} href={href}>
-      <ListItemButton selected={pathname === href}>
+    <Link key={name} href={href}>
+      <ListItemButton selected={pathname === href} disabled={disabled}>
         <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText primary={name} />
       </ListItemButton>
