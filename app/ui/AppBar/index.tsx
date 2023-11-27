@@ -8,11 +8,14 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { observer } from "mobx-react-lite";
+import { usePathname } from "next/navigation";
+import { getPageName } from "../../lib/helpers";
 import { useStore } from "../../lib/hooks/useStore";
-import { drawerWidth } from "../constants";
+import { DRAWER_WIDTH } from "../constants";
 
 const AppBar = observer(() => {
   const store = useStore("mainStore");
+  const path = usePathname();
 
   const handleDrawerToggle = () => {
     store.toggleMobileOpen();
@@ -26,8 +29,8 @@ const AppBar = observer(() => {
     <MuiAppBar
       position="fixed"
       sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: { sm: `${drawerWidth}px` },
+        width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+        ml: { sm: `${DRAWER_WIDTH}px` },
       }}
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -41,7 +44,7 @@ const AppBar = observer(() => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          Responsive drawer
+          {getPageName(path)}
         </Typography>
         <IconButton aria-label="toggle theme" onClick={handleToggleTheme}>
           {store.modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}

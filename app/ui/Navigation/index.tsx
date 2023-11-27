@@ -1,8 +1,10 @@
+"use client";
+
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../lib/hooks/useStore";
-import { drawerWidth } from "../constants";
+import { DRAWER_WIDTH } from "../constants";
 import sideBarContent from "../sideBarContent";
 
 const Navigation = observer(() => {
@@ -15,7 +17,7 @@ const Navigation = observer(() => {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
     >
       <Drawer
         variant="temporary"
@@ -28,7 +30,7 @@ const Navigation = observer(() => {
           display: { xs: "block", sm: "none" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: drawerWidth,
+            width: DRAWER_WIDTH,
           },
         }}
       >
@@ -41,7 +43,7 @@ const Navigation = observer(() => {
           display: { xs: "none", sm: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: drawerWidth,
+            width: DRAWER_WIDTH,
           },
         }}
         open

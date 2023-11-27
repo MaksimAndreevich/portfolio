@@ -1,5 +1,5 @@
-import { Paper } from "@mui/material";
+import { Box } from "@mui/material";
 
 export default function HomePage() {
-  return <Paper>HOME PAGE</Paper>;
+  return <Box>HOME PAGE</Box>;
 }
