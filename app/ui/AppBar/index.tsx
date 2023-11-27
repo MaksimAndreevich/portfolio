@@ -2,57 +2,53 @@
 
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
+import MenuIcon from "@mui/icons-material/Menu";
+import MuiAppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../lib/hooks/useStore";
+import { drawerWidth } from "../constants";
 
-const pages = ["About Me", "Pet Projects", "Contacts"];
+const AppBar = observer(() => {
+  const store = useStore("mainStore");
 
-// TODO: refactor
-function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-
-  // TODO: change in mobx
-  const [modeTheme, setModeTheme] = React.useState<"dark" | "light">("dark");
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
+  const handleDrawerToggle = () => {
+    store.toggleMobileOpen();
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleToggleTheme = () => {
+    store.toggleModeTheme();
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: "flex" }}>
-            <Typography variant="h6">Current Page Name</Typography>
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Change Theme">
-              <IconButton
-                onClick={() => {
-                  setModeTheme(modeTheme === "dark" ? "light" : "dark");
-                }}
-                sx={{ p: 0 }}
-              >
-                {modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+    <MuiAppBar
+      position="fixed"
+      sx={{
+        width: { sm: `calc(100% - ${drawerWidth}px)` },
+        ml: { sm: `${drawerWidth}px` },
+      }}
+    >
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ mr: 2, display: { sm: "none" } }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" noWrap component="div">
+          Responsive drawer
+        </Typography>
+        <IconButton aria-label="toggle theme" onClick={handleToggleTheme}>
+          {store.modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
+        </IconButton>
+      </Toolbar>
+    </MuiAppBar>
   );
-}
-export default ResponsiveAppBar;
+});
+
+export default AppBar;

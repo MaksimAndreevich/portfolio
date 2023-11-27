@@ -3,30 +3,28 @@ import createCache, { Options } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { observer } from "mobx-react-lite";
 import { useServerInsertedHTML } from "next/navigation";
 import { ReactNode, useMemo, useState } from "react";
+import { useStore } from "../../lib/hooks/useStore";
 
 interface IThemeRegistryProps {
   options: Options;
   children: ReactNode;
 }
 
-// {
-//   palette: {
-//     mode: mode,
-//     primary: {
-//       main: lightBlue[500],
-//     },
-//     secondary: {
-//       main: blueGrey[500],
-//     },
-//   },
-// }
+const ThemeRegistry = observer((props: IThemeRegistryProps) => {
+  const store = useStore("mainStore");
 
-export default function ThemeRegistry(props: IThemeRegistryProps) {
-  const [mode, setMode] = useState<"light" | "dark">("light");
-
-  const theme = useMemo(() => createTheme({}), [mode]);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: store.modeTheme,
+        },
+      }),
+    [store.modeTheme]
+  );
 
   const { options, children } = props;
 
@@ -78,4 +76,6 @@ export default function ThemeRegistry(props: IThemeRegistryProps) {
       </ThemeProvider>
     </CacheProvider>
   );
-}
+});
+
+export default ThemeRegistry;
