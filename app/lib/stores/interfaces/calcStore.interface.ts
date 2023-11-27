@@ -1,4 +1,1 @@
-
-export default interface ICalcStore {
-
-}
+export default interface ICalcStore {}
