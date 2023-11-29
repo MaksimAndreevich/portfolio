@@ -1,3 +1,1 @@
-export default interface ITodoStore {
-
-}
+export default interface ITodoStore {}
