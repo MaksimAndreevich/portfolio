@@ -1,9 +1,9 @@
-import { Box, TextField, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { Box, IconButton, TextField } from "@mui/material";
 
 const TodoInput = () => {
   return (
-    <Box display={"flex"}>
+    <Box display={"flex"} pb={2}>
       <TextField fullWidth label="Add todo" variant="outlined" />
       <Box
         sx={{

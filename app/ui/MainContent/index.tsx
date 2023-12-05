@@ -13,7 +13,9 @@ const MainContent = ({ children }: { children: React.ReactNode }) => {
       }}
     >
       <Toolbar />
-      <Paper sx={{ p: 3, borderRadius: 0, flexGrow: 1 }}>{children}</Paper>
+      <Paper sx={{ p: 3, borderRadius: 0, flexGrow: 1, overflow: "hidden" }}>
+        {children}
+      </Paper>
     </Box>
   );
 };

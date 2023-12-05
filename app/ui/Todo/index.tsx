@@ -1,10 +1,10 @@
 "use client";
 
-import { Box } from "@mui/material";
+import { Box, Button, ButtonGroup } from "@mui/material";
 import { observer } from "mobx-react-lite";
+import { ITodo } from "../../lib/interfaces";
 import TodoInput from "../TodoInput";
 import TodoList from "../TodoList";
-import { ITodo } from "../../lib/interfaces";
 
 interface ITodoProps {
   todosFromServer: Array<ITodo>;
@@ -12,10 +12,19 @@ interface ITodoProps {
 
 const Todo = observer(({ todosFromServer }: ITodoProps) => {
   return (
-    <Box>
+    <Box
+      display={"flex"}
+      sx={{ flexDirection: "column", height: "100%", maxHeight: "100%" }}
+    >
       <TodoInput />
 
       <TodoList todosFromServer={todosFromServer} />
+
+      <ButtonGroup variant="text" aria-label="todo filter" fullWidth>
+        <Button>All</Button>
+        <Button>Upcoming</Button>
+        <Button>Сompleted</Button>
+      </ButtonGroup>
     </Box>
   );
 });

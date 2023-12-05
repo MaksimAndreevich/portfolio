@@ -1,3 +1,4 @@
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Checkbox,
   IconButton,
@@ -9,18 +10,18 @@ import {
 } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { ITodo } from "../../lib/interfaces";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 const TodoList = observer(
   ({ todosFromServer }: { todosFromServer: Array<ITodo> }) => {
     return (
-      <List>
+      <List sx={{ flexGrow: 1, overflow: "auto" }}>
         {todosFromServer.map(({ id, title, status }) => (
           <ListItem
             key={id}
+            alignItems="flex-start"
             secondaryAction={
               <IconButton edge="end" aria-label="delete todo">
-                <DeleteIcon />
+                <DeleteIcon color="error" />
               </IconButton>
             }
             disablePadding
@@ -35,10 +36,17 @@ const TodoList = observer(
                   checked={status === "done"}
                   tabIndex={-1}
                   disableRipple
-                  //   inputProps={{ "aria-labelledby": labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={id} primary={title} />
+
+              <ListItemText
+                id={id}
+                primary={title}
+                sx={
+                  (status === "done" && { textDecoration: "line-through" }) ||
+                  undefined
+                }
+              />
             </ListItemButton>
           </ListItem>
         ))}
