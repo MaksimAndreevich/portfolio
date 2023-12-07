@@ -9,7 +9,8 @@ export async function fetchTodos() {
             SELECT
               id,
               status,
-              title
+              title,
+              created_at
             FROM todos
           `;
 

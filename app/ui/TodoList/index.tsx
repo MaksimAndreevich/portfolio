@@ -9,6 +9,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { observer } from "mobx-react-lite";
+import moment from "moment";
 import { useStore } from "../../lib/hooks/useStore";
 import { deleteTodo, updateTodo } from "../../lib/services/serverActions";
 
@@ -28,7 +29,7 @@ const TodoList = observer(() => {
     <List sx={{ flexGrow: 1, overflow: "auto" }}>
       {todoStore
         .getFilteredTodos(todoStore.filter)
-        .map(({ id, title, status }) => (
+        .map(({ id, title, status, created_at }) => (
           <ListItem
             key={id}
             alignItems="flex-start"
@@ -59,9 +60,13 @@ const TodoList = observer(() => {
               <ListItemText
                 id={id}
                 primary={title}
+                secondary={moment(created_at).format("DD-MM-YYYY")}
+                secondaryTypographyProps={{ fontSize: 10 }}
                 sx={
-                  (status === "done" && { textDecoration: "line-through" }) ||
-                  undefined
+                  (status === "done" && {
+                    textDecoration: "line-through",
+                    overflow: "hidden",
+                  }) || { overflow: "hidden" }
                 }
               />
             </ListItemButton>

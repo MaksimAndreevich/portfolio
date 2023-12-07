@@ -10,7 +10,8 @@ async function seedTodos(client) {
       CREATE TABLE IF NOT EXISTS todos (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         status VARCHAR(255) NOT NULL,
-        title VARCHAR(255) NOT NULL
+        title VARCHAR(255) NOT NULL,
+        createdAt TIMESTAMP now()
       );
     `;
 
