@@ -14,6 +14,7 @@ export async function fetchTodos() {
           `;
 
     const todos = data.rows;
+
     return todos;
   } catch (err) {
     console.error("Database Error:", err);
