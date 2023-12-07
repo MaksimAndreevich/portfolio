@@ -26,6 +26,7 @@ const TodoInput = observer(() => {
         type="text"
         id="todo"
         inputProps={{ maxLength: 255 }}
+        sx={{ pr: 1 }}
       />
       <Box
         sx={{

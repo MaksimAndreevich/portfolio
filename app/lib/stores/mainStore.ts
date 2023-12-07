@@ -10,7 +10,7 @@ export default class MainStore implements IMainStore {
   public readonly calcStore: ICalcStore;
 
   mobileOpen = false;
-  modeTheme: "dark" | "light" = "light";
+  modeTheme: "dark" | "light" = "dark";
 
   constructor() {
     this.todoStore = new TodoStore(this);

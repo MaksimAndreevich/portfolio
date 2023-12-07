@@ -4,6 +4,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
+import { useStore } from "../../lib/hooks/useStore";
 
 export interface ISideBarLinkProps {
   name: string;
@@ -14,10 +15,19 @@ export interface ISideBarLinkProps {
 
 const SideBarLink = ({ name, href, icon, disabled }: ISideBarLinkProps) => {
   const pathname = usePathname();
+  const store = useStore("mainStore");
+
+  const handleClick = () => {
+    store.mobileOpen && store.toggleMobileOpen();
+  };
 
   return (
     <Link key={name} href={disabled ? "#" : href}>
-      <ListItemButton selected={pathname === href} disabled={disabled}>
+      <ListItemButton
+        selected={pathname === href}
+        disabled={disabled}
+        onClick={handleClick}
+      >
         <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText primary={name} />
       </ListItemButton>

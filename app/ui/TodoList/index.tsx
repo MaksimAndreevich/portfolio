@@ -38,6 +38,7 @@ const TodoList = observer(() => {
                 edge="end"
                 aria-label="delete todo"
                 onClick={() => handleDelete(id)}
+                sx={{ pr: 0.5 }}
               >
                 <DeleteIcon color="error" />
               </IconButton>
