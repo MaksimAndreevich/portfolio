@@ -10,6 +10,7 @@ const MainContent = ({ children }: { children: React.ReactNode }) => {
         width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
         display: "flex",
         flexDirection: "column",
+        overflow: "hidden",
       }}
     >
       <Toolbar />

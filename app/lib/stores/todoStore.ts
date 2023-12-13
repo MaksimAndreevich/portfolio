@@ -1,4 +1,5 @@
 import * as mobx from "mobx";
+import moment from "moment";
 import { Filter, ITodo } from "../interfaces";
 import MainService from "../services/mainService";
 import IMainService from "../services/mainService.interface";
@@ -27,18 +28,24 @@ export default class TodoStore implements ITodoStore {
   };
 
   @mobx.action
-  changeTodoStatus = (id: string) => {};
-
-  @mobx.action
   getFilteredTodos = () => {
     if (this.filter === Filter.COMPLETED) {
       return this.todosFromServer.filter((t) => t.status === "done");
     } else if (this.filter === Filter.UPCOMING) {
       return this.todosFromServer.filter((t) => t.status === "pending");
     } else {
-      return this.todosFromServer
-        .slice()
-        .sort((a, b) => (a.status === "done" ? 1 : -1));
+      const upcomingTodos = this.todosFromServer
+        .filter((t) => t.status === "pending")
+        .sort(
+          (a, b) => moment(b.created_at).unix() - moment(a.created_at).unix()
+        );
+      const completedTodos = this.todosFromServer
+        .filter((t) => t.status === "done")
+        .sort(
+          (a, b) => moment(b.created_at).unix() - moment(a.created_at).unix()
+        );
+
+      return upcomingTodos.concat(completedTodos);
     }
   };
 

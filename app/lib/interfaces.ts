@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+
 export interface ITodo {
   id: string;
   status: "done" | "pending";
@@ -9,4 +11,12 @@ export enum Filter {
   ALL = "all",
   UPCOMING = "upcoming",
   COMPLETED = "completed",
+}
+
+export interface IProjectCard {
+  image: ReactElement;
+  title: string;
+  discription: string;
+  linkToPage: string;
+  linkToGit?: string;
 }

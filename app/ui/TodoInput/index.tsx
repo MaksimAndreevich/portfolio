@@ -33,6 +33,7 @@ const TodoInput = observer(() => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          pr: 0.5,
         }}
       >
         <IconButton

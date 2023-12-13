@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeRegistry options={{ key: "mui" }}>
-          <Box sx={{ display: "flex", height: "100vh" }}>
+          <Box sx={{ display: "flex", height: "100vh", overflow: "hidden" }}>
             <CssBaseline />
             <AppBar />
 

@@ -3,6 +3,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import Toolbar from "@mui/material/Toolbar";
+import routes from "../../lib/routes";
 import SideBarLink from "../SideBarLink";
 import linksProjectPages from "./links";
 
@@ -11,12 +12,15 @@ const sideBarContent = (
     <Toolbar />
     <Divider />
     <List>
-      <SideBarLink name={"About Me"} href="/" icon={<CoPresentIcon />} />
       <SideBarLink
-        name={"About This Page"}
-        href="/about-this-page"
+        name={"About Me"}
+        href={routes.root}
+        icon={<CoPresentIcon />}
+      />
+      <SideBarLink
+        name={"About This App"}
+        href={routes.aboutThisApp}
         icon={<InfoIcon />}
-        disabled
       />
     </List>
     <Divider />

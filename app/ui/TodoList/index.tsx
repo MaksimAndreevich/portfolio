@@ -38,7 +38,6 @@ const TodoList = observer(() => {
                 edge="end"
                 aria-label="delete todo"
                 onClick={() => handleDelete(id)}
-                sx={{ pr: 0.5 }}
               >
                 <DeleteIcon color="error" />
               </IconButton>
@@ -61,7 +60,12 @@ const TodoList = observer(() => {
               <ListItemText
                 id={id}
                 primary={title}
-                secondary={moment(created_at).format("DD-MM-YYYY")}
+                // TODO: moment time zone is not correct
+
+                secondary={moment
+                  .utc(created_at)
+                  .local()
+                  .format("DD-MM-YYYY HH:mm")}
                 secondaryTypographyProps={{ fontSize: 10 }}
                 sx={
                   (status === "done" && {

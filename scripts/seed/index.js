@@ -11,7 +11,7 @@ async function seedTodos(client) {
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         status VARCHAR(255) NOT NULL,
         title VARCHAR(255) NOT NULL,
-        createdAt TIMESTAMP now()
+        created_at TIMESTAMP now()
       );
     `;
 

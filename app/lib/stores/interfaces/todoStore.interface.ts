@@ -6,7 +6,6 @@ export default interface ITodoStore {
 
   setTodosFromServer: (todos: Array<ITodo>) => void;
 
-  changeTodoStatus: (id: string) => void;
   getFilteredTodos: (filter: Filter) => Array<ITodo>;
   changeFilter: (filter: Filter) => void;
 }
