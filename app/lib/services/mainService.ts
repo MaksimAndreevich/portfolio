@@ -37,19 +37,23 @@ export default class MainService implements IMainService {
     }
   };
 
-  getCurrentWeatherByGeoCoordinates = async (coord: {
-    lat: number;
-    lon: number;
-  }) => {
+  getCurrentWeatherByGeoCoordinates = async (coord: { lat: number; lon: number }) => {
     try {
-      const weather = await this.openWeather.getCurrentWeatherByGeoCoordinates(
-        coord.lat,
-        coord.lon
-      );
+      const weather = await this.openWeather.getCurrentWeatherByGeoCoordinates(coord.lat, coord.lon);
 
       return weather;
     } catch (error) {
       console.error("[Error into getCurrentWeatherByGeoCoordinates]", error);
     }
+  };
+
+  toggleThemeLocalStorage = (currentTheme: "dark" | "light") => {
+    localStorage.setItem("theme", currentTheme);
+  };
+
+  getThemeLocalStorage = () => {
+    const theme = localStorage.getItem("theme") as "dark" | "light";
+
+    return theme || "dark";
   };
 }

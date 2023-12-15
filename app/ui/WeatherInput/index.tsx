@@ -7,11 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { useStore } from "../../lib/hooks/useStore";
 
-interface IWeatherInputProps {
-  cities: Array<{ label: string; country?: string }>;
-}
-
-const WeatherInput = observer(({ cities }: IWeatherInputProps) => {
+const WeatherInput = observer(() => {
   const [value, setValue] = useState("");
 
   const weatherStore = useStore("weatherStore");
@@ -28,6 +24,7 @@ const WeatherInput = observer(({ cities }: IWeatherInputProps) => {
   return (
     <Box sx={{ display: "flex" }}>
       <TextField
+        variant="standard"
         fullWidth
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -42,42 +39,7 @@ const WeatherInput = observer(({ cities }: IWeatherInputProps) => {
         error={weatherStore.isCityNotFound}
         helperText={weatherStore.isCityNotFound && "City not found..."}
       />
-      {/* <Autocomplete
-        value={inputValue}
-        onChange={(event: any, newValue) => {
-          if (!newValue) return;
-          weatherStore.getWeather(newValue.label);
-        }}
-        inputValue={inputValue.label}
-        onInputChange={(event, newInputValue) => {
-          setInputValue({ label: newInputValue });
-        }}
-        disablePortal
-        id="autocomplete cities"
-        options={cities}
-        fullWidth
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="City"
-            inputProps={{
-              ...params.inputProps,
-              onKeyDown: (e) => {
-                if (e.key === "Enter") {
-                  // TODO: after keyDown Enter dropdown doesnt hide
-                  e.stopPropagation();
-                  handleClickSearch();
-                }
-              },
-            }}
-          />
-        )}
-        renderOption={(props, option) => (
-          <Box component="li" key={option.label} {...props}>
-            {`${option.label} (${option.country})`}
-          </Box>
-        )}
-      /> */}
+
       <Box
         sx={{
           display: "flex",
@@ -86,12 +48,7 @@ const WeatherInput = observer(({ cities }: IWeatherInputProps) => {
           pl: 1,
         }}
       >
-        <IconButton
-          color="primary"
-          aria-label="search city"
-          type="submit"
-          onClick={handleClickSearch}
-        >
+        <IconButton color="primary" aria-label="search city" type="submit" onClick={handleClickSearch}>
           <SearchIcon />
         </IconButton>
       </Box>
