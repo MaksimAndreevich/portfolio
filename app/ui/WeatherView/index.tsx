@@ -6,6 +6,7 @@ import WeatherCurrentInfo from "../WeatherCurrentInfo";
 import { useStore } from "../../lib/hooks/useStore";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
+import ForcastCards from "../ForcastCards";
 
 interface IWeatherViewProps {
   cities: Array<{ label: string }>;
@@ -23,6 +24,8 @@ const WeatherView = observer(({ cities }: IWeatherViewProps) => {
       <WeatherInput cities={cities} />
 
       {weatherStore.weatherData?.id && <WeatherCurrentInfo />}
+
+      <ForcastCards />
     </Box>
   );
 });

@@ -2,11 +2,14 @@ import IMainService from "./mainService.interface";
 import OpenWeatherMap from "openweathermap-ts";
 
 export default class MainService implements IMainService {
-  openWeather = new OpenWeatherMap({
-    apiKey: process.env.NEXT_PUBLIC_OPEN_WEATHER_MAP_KEY,
-  });
+  openWeather: OpenWeatherMap;
 
-  constructor() {}
+  constructor() {
+    this.openWeather = new OpenWeatherMap({
+      apiKey: process.env.NEXT_PUBLIC_OPEN_WEATHER_MAP_KEY,
+    });
+    this.openWeather.setUnits("metric");
+  }
 
   getCurrentWeather = async (city: string) => {
     try {

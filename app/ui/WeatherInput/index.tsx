@@ -28,6 +28,7 @@ const WeatherInput = observer(({ cities }: IWeatherInputProps) => {
   return (
     <Box sx={{ display: "flex" }}>
       <TextField
+        fullWidth
         value={value}
         onChange={(e) => setValue(e.target.value)}
         label="City"
