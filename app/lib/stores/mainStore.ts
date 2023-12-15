@@ -18,7 +18,7 @@ export default class MainStore implements IMainStore {
   public readonly weatherStore: IWeatherStore;
 
   mobileOpen = false;
-  modeTheme: "dark" | "light";
+  modeTheme: "dark" | "light" = "dark";
 
   constructor() {
     this.service = new MainService();
@@ -26,8 +26,6 @@ export default class MainStore implements IMainStore {
     this.todoStore = new TodoStore(this);
     this.calcStore = new CalcStore(this);
     this.weatherStore = new WeatherStore(this);
-
-    this.modeTheme = this.service.getThemeLocalStorage();
 
     mobx.makeAutoObservable(this);
   }
@@ -39,7 +37,23 @@ export default class MainStore implements IMainStore {
 
   @mobx.action
   toggleModeTheme = () => {
-    this.modeTheme = this.modeTheme === "dark" ? "light" : "dark";
+    this.setModeTheme(this.modeTheme === "dark" ? "light" : "dark");
     this.service.toggleThemeLocalStorage(this.modeTheme);
+  };
+
+  @mobx.action
+  setThemeFromLocalStorage = () => {
+    const theme = this.service.getThemeLocalStorage();
+
+    if (theme) {
+      this.setModeTheme(theme);
+    }
+  };
+
+  @mobx.action
+  setModeTheme = (theme: "dark" | "light") => {
+    mobx.runInAction(() => {
+      this.modeTheme = theme;
+    });
   };
 }

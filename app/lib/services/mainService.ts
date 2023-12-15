@@ -55,9 +55,7 @@ export default class MainService implements IMainService {
     if (typeof window !== undefined) {
       const theme = localStorage.getItem("theme") as "dark" | "light";
 
-      return theme || "dark";
-    } else {
-      return "dark";
+      return theme;
     }
   };
 }

@@ -1,7 +1,17 @@
+"use client";
+
 import { Box, Paper, Toolbar } from "@mui/material";
 import { DRAWER_WIDTH } from "../constants";
+import { useStore } from "../../lib/hooks/useStore";
+import { useEffect } from "react";
 
 const MainContent = ({ children }: { children: React.ReactNode }) => {
+  const store = useStore("mainStore");
+
+  useEffect(() => {
+    store.setThemeFromLocalStorage();
+  }, []);
+
   return (
     <Box
       component="main"

@@ -6,5 +6,5 @@ export default interface IMainService {
   getCurrentWeatherByGeoCoordinates: (coord: { lat: number; lon: number }) => Promise<CurrentResponse | undefined>;
 
   toggleThemeLocalStorage: (theme: "dark" | "light") => void;
-  getThemeLocalStorage: () => "dark" | "light";
+  getThemeLocalStorage: () => "dark" | "light" | undefined;
 }
