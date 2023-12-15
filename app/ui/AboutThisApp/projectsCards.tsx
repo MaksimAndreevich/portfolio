@@ -15,7 +15,7 @@ const cards: Array<IProjectCard> = [
       />
     ),
     discription: "blabla0",
-    link: routes.todo,
+    linkToPage: routes.todo,
   },
 ];
 

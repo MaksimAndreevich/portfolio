@@ -20,7 +20,7 @@ const ProjectCard = ({
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 140 }} component={image} title={title} />
+      {/* <CardMedia sx={{ height: 140 }} component={image} title={title} /> */}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}

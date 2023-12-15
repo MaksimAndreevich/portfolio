@@ -1,6 +1,5 @@
 import { sql } from "@vercel/postgres";
 import { ITodo } from "../interfaces";
-import axios from "axios";
 
 // These requests are executed on the server side
 
