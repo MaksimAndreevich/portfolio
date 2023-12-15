@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import WeatherInput from "../WeatherInput";
 import WeatherCurrentInfo from "../WeatherCurrentInfo";
 import { useStore } from "../../lib/hooks/useStore";
@@ -23,9 +23,15 @@ const WeatherView = observer(({ cities }: IWeatherViewProps) => {
     <Box>
       <WeatherInput cities={cities} />
 
-      {weatherStore.weatherData?.id && <WeatherCurrentInfo />}
+      {weatherStore.weatherData?.id ? (
+        <WeatherCurrentInfo />
+      ) : (
+        <Typography variant="h6" textAlign={"center"}>
+          Please enter your city in the search...
+        </Typography>
+      )}
 
-      <ForcastCards />
+      {weatherStore.weatherData?.id && <ForcastCards />}
     </Box>
   );
 });

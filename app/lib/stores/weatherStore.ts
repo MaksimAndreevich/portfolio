@@ -1,4 +1,3 @@
-import ICalcStore from "./interfaces/calcStore.interface";
 import IMainStore from "./interfaces/mainStore.interface";
 
 import * as mobx from "mobx";
@@ -16,6 +15,8 @@ export default class WeatherStore implements IWeatherStore {
   currentCity: string = "";
   weatherData: CurrentResponse | null = null;
   forcast: ThreeHourResponse | null = null;
+
+  isCityNotFound: boolean = false;
 
   constructor(mainStore: IMainStore) {
     this.service = new MainService();
@@ -37,9 +38,14 @@ export default class WeatherStore implements IWeatherStore {
   @mobx.action
   getThreeHourForcast = async (city: string) => {
     const res = await this.service.getThreeHourForcast(city);
-    if (!res) return;
+
+    if (!res || res.cod === "404") {
+      this.isCityNotFound = true;
+      return;
+    }
 
     mobx.runInAction(() => {
+      this.isCityNotFound = false;
       this.forcast = res;
     });
   };

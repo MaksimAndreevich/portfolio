@@ -10,6 +10,7 @@ export default interface IWeatherStore {
   currentCity: string;
   weatherData: CurrentResponse | null;
   forcast: ThreeHourResponse | null;
+  isCityNotFound: boolean;
 
   getCurrentWeather: (city: string) => Promise<void>;
   getThreeHourForcast: (city: string) => Promise<void>;

@@ -39,6 +39,8 @@ const WeatherInput = observer(({ cities }: IWeatherInputProps) => {
             }
           },
         }}
+        error={weatherStore.isCityNotFound}
+        helperText={weatherStore.isCityNotFound && "City not found..."}
       />
       {/* <Autocomplete
         value={inputValue}
