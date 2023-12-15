@@ -48,12 +48,16 @@ export default class MainService implements IMainService {
   };
 
   toggleThemeLocalStorage = (currentTheme: "dark" | "light") => {
-    localStorage.setItem("theme", currentTheme);
+    if (typeof window !== undefined) localStorage.setItem("theme", currentTheme);
   };
 
   getThemeLocalStorage = () => {
-    const theme = localStorage.getItem("theme") as "dark" | "light";
+    if (typeof window !== undefined) {
+      const theme = localStorage.getItem("theme") as "dark" | "light";
 
-    return theme || "dark";
+      return theme || "dark";
+    } else {
+      return "dark";
+    }
   };
 }

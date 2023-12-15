@@ -16,7 +16,7 @@ export enum Filter {
 export interface IProjectCard {
   image: ReactElement;
   title: string;
-  discription: string;
+  description: string;
   linkToPage: string;
   linkToGit?: string;
 }
