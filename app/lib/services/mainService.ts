@@ -31,11 +31,25 @@ export default class MainService implements IMainService {
         cityName: city,
       });
 
-      console.log("FORCAST ", weather);
-
       return weather;
     } catch (error) {
       console.error("[Error into getForcast]", error);
+    }
+  };
+
+  getCurrentWeatherByGeoCoordinates = async (coord: {
+    lat: number;
+    lon: number;
+  }) => {
+    try {
+      const weather = await this.openWeather.getCurrentWeatherByGeoCoordinates(
+        coord.lat,
+        coord.lon
+      );
+
+      return weather;
+    } catch (error) {
+      console.error("[Error into getCurrentWeatherByGeoCoordinates]", error);
     }
   };
 }

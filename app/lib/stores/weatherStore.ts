@@ -8,6 +8,7 @@ import {
   CurrentResponse,
   ThreeHourResponse,
 } from "openweathermap-ts/dist/types";
+import { log } from "console";
 
 export default class WeatherStore implements IWeatherStore {
   service: IMainService;
@@ -21,7 +22,6 @@ export default class WeatherStore implements IWeatherStore {
   constructor(mainStore: IMainStore) {
     this.service = new MainService();
 
-    // this.getCurrentPosition();
     mobx.makeAutoObservable(this);
   }
 
@@ -56,11 +56,22 @@ export default class WeatherStore implements IWeatherStore {
     await this.getThreeHourForcast(city);
   };
 
-  getCurrentPosition = () => {
+  getCurrentWeatherByCoordinates = async (coord: {
+    lat: number;
+    lon: number;
+  }) => {
+    const weather = await this.service.getCurrentWeatherByGeoCoordinates(coord);
+
+    if (weather?.name) this.getWeather(weather?.name);
+  };
+
+  getWeatherByCurrentPosition = () => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        // this.weatherData?.coord.lat = pos.coords.latitude;
-        // this.weatherData?.coord.lon = pos.coords.longitude;
+        this.getCurrentWeatherByCoordinates({
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+        });
       },
       (error) => {
         console.warn(

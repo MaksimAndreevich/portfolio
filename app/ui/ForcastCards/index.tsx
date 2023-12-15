@@ -11,6 +11,7 @@ const ForcastCards = observer(() => {
       {weatherStore.forcast?.list?.map((w) => {
         return (
           <ForcastCard
+            key={w.dt_txt}
             dt={w.dt}
             dtText={w.dt_txt}
             temp={w.main.temp}

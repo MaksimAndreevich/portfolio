@@ -15,4 +15,5 @@ export default interface IWeatherStore {
   getCurrentWeather: (city: string) => Promise<void>;
   getThreeHourForcast: (city: string) => Promise<void>;
   getWeather: (city: string) => void;
+  getWeatherByCurrentPosition: () => void;
 }

@@ -9,31 +9,31 @@ import { useEffect } from "react";
 import ForcastCards from "../ForcastCards";
 
 interface IWeatherViewProps {
-  cities: Array<{ label: string }>;
+    cities: Array<{ label: string }>;
 }
 
 const WeatherView = observer(({ cities }: IWeatherViewProps) => {
-  const weatherStore = useStore("weatherStore");
+    const weatherStore = useStore("weatherStore");
 
-  useEffect(() => {
-    console.log(weatherStore.weatherData);
-  }, [weatherStore.weatherData]);
+    useEffect(() => {
+        weatherStore.getWeatherByCurrentPosition();
+    }, []);
 
-  return (
-    <Box>
-      <WeatherInput cities={cities} />
+    return (
+        <Box>
+            <WeatherInput cities={cities} />
 
-      {weatherStore.weatherData?.id ? (
-        <WeatherCurrentInfo />
-      ) : (
-        <Typography variant="h6" textAlign={"center"}>
-          Please enter your city in the search...
-        </Typography>
-      )}
+            {weatherStore.weatherData?.id ? (
+                <WeatherCurrentInfo />
+            ) : (
+                <Typography variant="h6" textAlign={"center"} color={"primary"}>
+                    Please enter your city in the search...
+                </Typography>
+            )}
 
-      {weatherStore.weatherData?.id && <ForcastCards />}
-    </Box>
-  );
+            {weatherStore.weatherData?.id && <ForcastCards />}
+        </Box>
+    );
 });
 
 export default WeatherView;

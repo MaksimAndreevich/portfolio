@@ -6,4 +6,8 @@ import {
 export default interface IMainService {
   getCurrentWeather: (city: string) => Promise<CurrentResponse | undefined>;
   getThreeHourForcast: (city: string) => Promise<ThreeHourResponse | undefined>;
+  getCurrentWeatherByGeoCoordinates: (coord: {
+    lat: number;
+    lon: number;
+  }) => Promise<CurrentResponse | undefined>;
 }
