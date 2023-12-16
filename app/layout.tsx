@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <ThemeRegistry options={{ key: "mui" }}>
-          <Box sx={{ display: "flex", height: "100vh", overflow: "hidden" }}>
+          <Box sx={{ display: "flex", height: "100%", overflow: "hidden" }}>
             <CssBaseline />
             <AppBar />
 

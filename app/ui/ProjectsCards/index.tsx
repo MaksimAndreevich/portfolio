@@ -1,3 +1,5 @@
+"use client";
+
 import { Grid } from "@mui/material";
 import cards from "../AboutThisApp/projectsCards";
 import ProjectCard from "../ProjectCard";

@@ -16,6 +16,7 @@ const MainContent = ({ children }: { children: React.ReactNode }) => {
     <Box
       component="main"
       sx={{
+        height: "100%",
         flexGrow: 1,
         width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
         display: "flex",
@@ -24,7 +25,7 @@ const MainContent = ({ children }: { children: React.ReactNode }) => {
       }}
     >
       <Toolbar />
-      <Paper sx={{ p: 3, borderRadius: 0, flexGrow: 1, overflow: "auto" }}>{children}</Paper>
+      <Paper sx={{ p: 3, borderRadius: 0, flexGrow: 1, overflow: "auto", height: "100%" }}>{children}</Paper>
     </Box>
   );
 };

@@ -1,13 +1,5 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  Checkbox,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Box, Checkbox, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import moment from "moment";
 import { useStore } from "../../lib/hooks/useStore";
@@ -26,35 +18,22 @@ const TodoList = observer(() => {
   };
 
   return (
-    <List sx={{ flexGrow: 1, overflow: "auto" }}>
-      {todoStore
-        .getFilteredTodos(todoStore.filter)
-        .map(({ id, title, status, created_at }) => (
+    <Box sx={{ flexGrow: 1, overflow: "auto" }}>
+      <List>
+        {todoStore.getFilteredTodos(todoStore.filter).map(({ id, title, status, created_at }) => (
           <ListItem
             key={id}
             alignItems="flex-start"
             secondaryAction={
-              <IconButton
-                edge="end"
-                aria-label="delete todo"
-                onClick={() => handleDelete(id)}
-              >
+              <IconButton edge="end" aria-label="delete todo" onClick={() => handleDelete(id)}>
                 <DeleteIcon color="error" />
               </IconButton>
             }
             disablePadding
           >
-            <ListItemButton
-              onClick={() => handleToggleStatus(id, status)}
-              dense
-            >
+            <ListItemButton onClick={() => handleToggleStatus(id, status)} dense disableRipple>
               <ListItemIcon>
-                <Checkbox
-                  edge="start"
-                  checked={status === "done"}
-                  tabIndex={-1}
-                  disableRipple
-                />
+                <Checkbox edge="start" checked={status === "done"} tabIndex={-1} disableRipple />
               </ListItemIcon>
 
               <ListItemText
@@ -62,10 +41,7 @@ const TodoList = observer(() => {
                 primary={title}
                 // TODO: moment time zone is not correct
 
-                secondary={moment
-                  .utc(created_at)
-                  .local()
-                  .format("DD-MM-YYYY HH:mm")}
+                secondary={moment.utc(created_at).local().format("DD-MM-YYYY HH:mm")}
                 secondaryTypographyProps={{ fontSize: 10 }}
                 sx={
                   (status === "done" && {
@@ -77,7 +53,8 @@ const TodoList = observer(() => {
             </ListItemButton>
           </ListItem>
         ))}
-    </List>
+      </List>
+    </Box>
   );
 });
 
