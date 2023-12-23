@@ -6,10 +6,10 @@ import ProjectCard from "../ProjectCard";
 
 const ProjectsCards = () => {
   return (
-    <Grid container spacing={2} pt={2} justifyContent={"center"}>
+    <Grid container spacing={2} pt={2} pb={1} justifyContent={"center"}>
       {cards.map(({ description, title, linkToPage, linkToGit, image }) => {
         return (
-          <Grid item>
+          <Grid item key={title}>
             <ProjectCard title={title} description={description} linkToPage={linkToPage} linkToGit={linkToGit} image={image} />
           </Grid>
         );

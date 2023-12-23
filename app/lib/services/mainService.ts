@@ -17,8 +17,6 @@ export default class MainService implements IMainService {
         cityName: city,
       });
 
-      console.log(weather);
-
       return weather;
     } catch (error) {
       console.error("[Error into getWeather]", error);
