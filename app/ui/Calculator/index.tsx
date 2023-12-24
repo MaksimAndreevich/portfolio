@@ -5,6 +5,7 @@ import { useStore } from "../../lib/hooks/useStore";
 import { useState } from "react";
 import AutoScaleTextField from "../AutoScaleTextField";
 import CalcButton from "../CalcButton";
+import CalcButtons from "../CalcButtons";
 
 const Calculator = observer(() => {
   const calcStore = useStore("calcStore");
@@ -13,11 +14,11 @@ const Calculator = observer(() => {
 
   return (
     <Box sx={{ height: "100%", width: "100%" }}>
-      <Paper elevation={24} sx={{ width: { sx: "100%", sm: "70%" }, height: { sx: "100%", sm: "70%" }, m: "auto" }}>
+      <Paper elevation={24} sx={{ width: { sx: "100%", sm: "70%" }, height: { sx: "100%", sm: "70%" }, m: "auto", minWidth: 328 }}>
         {/* <AutoScaleTextField /> */}
 
         <TextField
-          value={value}
+          value={calcStore.input}
           id="input calc"
           fullWidth
           variant="filled"
@@ -30,11 +31,7 @@ const Calculator = observer(() => {
           }}
         />
 
-        <CalcButton content="C" />
-        <CalcButton content="C" color={"orange"} />
-        <CalcButton content="1" color={"blueGrey"} />
-        <CalcButton content="2" color={"blueGrey"} />
-        <CalcButton content="1" color={"grey"} />
+        <CalcButtons />
       </Paper>
     </Box>
   );

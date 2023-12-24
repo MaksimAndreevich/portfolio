@@ -3,6 +3,7 @@ import { orange, grey, blueGrey } from "@mui/material/colors";
 
 interface ICaclButton {
   content: string;
+  action: () => void;
   color?: "orange" | "grey" | "blueGrey";
 }
 
@@ -12,7 +13,7 @@ const colors = {
   blueGrey: { main: blueGrey[500], hover: blueGrey[700] },
 };
 
-const CalcButton = ({ content, color = "blueGrey" }: ICaclButton) => {
+const CalcButton = ({ content, color = "blueGrey", action }: ICaclButton) => {
   const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
     // color: theme.palette.getContrastText(purple[500]),
     backgroundColor: colors[color].main,
@@ -22,7 +23,7 @@ const CalcButton = ({ content, color = "blueGrey" }: ICaclButton) => {
   }));
 
   return (
-    <ColorButton size="large" variant="contained">
+    <ColorButton onClick={action} sx={{ width: "100%", height: "100%" }} size="large" variant="contained">
       {content}
     </ColorButton>
   );
