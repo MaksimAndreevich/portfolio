@@ -23,7 +23,7 @@ const CalcButton = ({ content, color = "blueGrey", action }: ICaclButton) => {
   }));
 
   return (
-    <ColorButton onClick={action} sx={{ width: "100%", height: "100%" }} size="large" variant="contained">
+    <ColorButton onClick={action} sx={{ width: "100%", height: "100%", fontSize: 32 }} size="large" variant="contained">
       {content}
     </ColorButton>
   );

@@ -13,7 +13,7 @@ const Calculator = observer(() => {
   const [value, setValue] = useState("");
 
   return (
-    <Box sx={{ height: "100%", width: "100%" }}>
+    <Box sx={{ height: "auto", width: "100%" }}>
       <Paper elevation={24} sx={{ width: { sx: "100%", sm: "70%" }, height: { sx: "100%", sm: "70%" }, m: "auto", minWidth: 328 }}>
         {/* <AutoScaleTextField /> */}
 

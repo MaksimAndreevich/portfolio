@@ -14,7 +14,7 @@ const CalcButtons = () => {
     <Grid container spacing={2} p={1}>
       {buttons.map(({ content, color, value, role }) => {
         return (
-          <Grid item xs={value === 0 ? 6 : 3} key={content}>
+          <Grid item xs={value === "clear" || value === "=" ? 6 : 3} key={content}>
             <CalcButton action={() => handleClick(value, role, content)} content={content} color={color} />
           </Grid>
         );
