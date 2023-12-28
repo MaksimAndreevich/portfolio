@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
-import buttons from "./buttons";
-import CalcButton from "../CalcButton";
 import { useStore } from "../../lib/hooks/useStore";
+import CalcButton from "../CalcButton";
+import buttons from "./buttons";
 
 const CalcButtons = () => {
   const calcStore = useStore("calcStore");
@@ -14,7 +14,7 @@ const CalcButtons = () => {
     <Grid container spacing={2} p={1}>
       {buttons.map(({ content, color, value, role }) => {
         return (
-          <Grid item xs={value === "clear" || value === "=" ? 6 : 3} key={content}>
+          <Grid item xs={value === "reset" || value === "=" ? 6 : 3} key={content}>
             <CalcButton action={() => handleClick(value, role, content)} content={content} color={color} />
           </Grid>
         );

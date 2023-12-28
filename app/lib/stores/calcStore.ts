@@ -6,10 +6,11 @@ import * as mobx from "mobx";
 export default class CalcStore implements ICalcStore {
   mainStore: IMainStore;
 
-  firstOperand: string = "0";
-  secondOperand: string = "0";
-  operator: CalcOperatoprsEnum = CalcOperatoprsEnum.null;
-  input: string = this.firstOperand;
+  a: number = 0;
+  b: number | null = null;
+
+  operator: CalcOperatoprsEnum = CalcOperatoprsEnum.Null;
+  input: string = String(this.a);
 
   constructor(mainStore: IMainStore) {
     this.mainStore = mainStore;
@@ -19,101 +20,140 @@ export default class CalcStore implements ICalcStore {
 
   @mobx.action
   buttonClickHandler = (value: string | number, role: string, content: string) => {
-    if (role === "insert") {
-      this.insertIntoInput(value);
-    } else {
-      this.numberOperation(value as CalcOperatoprsEnum);
+    switch (role) {
+      case "execute":
+        this.execute();
+        break;
+      case "insert":
+        this.handleInsert(value);
+        break;
+      case "operator":
+        this.setInput("00");
+        this.setOperator(value as CalcOperatoprsEnum);
+        break;
+      default:
+        break;
     }
   };
 
   @mobx.action
   execute = () => {
-    if (!this.firstOperand || !this.secondOperand || !this.operator) return;
+    if (!this.b || !this.operator) return;
 
-    const a = Number(this.firstOperand);
-    const b = Number(this.secondOperand);
+    let result: number | null = null;
 
-    switch (this.operator as CalcOperatoprsEnum) {
-      case CalcOperatoprsEnum["*"]:
-        this.setInput(String(a * b));
+    switch (this.operator) {
+      case CalcOperatoprsEnum.Division:
+        result = Math.round((this.a / this.b) * 10000) / 10000;
         break;
-      case CalcOperatoprsEnum["/"]:
-        this.setInput(String(a / b));
-
+      case CalcOperatoprsEnum.Multiply:
+        result = this.a * this.b;
         break;
-      case CalcOperatoprsEnum["+"]:
-        this.setInput(String(a + b));
-
+      case CalcOperatoprsEnum.Minus:
+        result = this.a - this.b;
         break;
-      case CalcOperatoprsEnum["-"]:
-        this.setInput(String(a - b));
-
+      case CalcOperatoprsEnum.Plus:
+        result = this.a + this.b;
         break;
-      default:
-        console.log("Нет таких такого оператора", this.operator);
     }
 
-    console.log("execute", `${a} ${this.operator} ${b} = ${this.input}`);
+    if (result !== null) {
+      this.setInput(String(result));
+      this.setA(result);
+      this.setOperator(CalcOperatoprsEnum.Null);
+    }
   };
 
   @mobx.action
-  numberOperation = (value: CalcOperatoprsEnum) => {
+  handleInsert = (value: string | number) => {
+    if (value === "reset") return this.clear();
+    if (value === "inversion") return this.inversion();
+
+    if (value === "." && !this.input.includes(".")) {
+      this.insert(value);
+    } else if (typeof value === "number") {
+      this.insert(value);
+    }
+  };
+
+  insert = (value: string | number) => {
     if (!this.operator) {
-      this.setOperator(value);
-    }
-
-    this.operator && this.execute();
-  };
-
-  @mobx.action
-  insertIntoInput = (value: string | number) => {
-    if (value === "clear") {
-      return this.clear();
-    }
-
-    if (this.operator === null) {
-      this.setFirstOperand(this.firstOperand + value);
-      this.setInput(this.firstOperand);
+      const newA = this.input + value;
+      this.setA(+newA);
+      this.setInput(newA);
     } else {
-      this.setSecondOperand(this.secondOperand + value);
-      this.setInput(this.secondOperand);
+      const newB = this.input + value;
+      this.setB(+newB);
+      this.setInput(newB);
     }
   };
 
   @mobx.action
-  setFirstOperand = (newValue: string) => {
+  setA = (value: number) => {
     mobx.runInAction(() => {
-      this.firstOperand = newValue;
+      this.a = value;
     });
+
+    console.log("вставляем в A", this.a);
   };
 
   @mobx.action
-  setSecondOperand = (newValue: string) => {
+  setB = (value: number | null) => {
     mobx.runInAction(() => {
-      this.secondOperand = newValue;
+      this.b = value;
     });
+
+    console.log("вставляем в В", this.b);
   };
 
   @mobx.action
-  setOperator = (operator: CalcOperatoprsEnum) => {
+  setOperator = (op: CalcOperatoprsEnum) => {
     mobx.runInAction(() => {
-      this.operator = operator;
+      this.operator = op;
     });
+
+    console.log("оператор выбран", this.operator);
   };
 
   @mobx.action
   setInput = (value: string) => {
+    let s = value[0] === "0" ? value.slice(1) : value;
+
+    if (s[0] === ".") {
+      s = "0" + s;
+    }
+
     mobx.runInAction(() => {
-      this.input = value;
+      this.input = s;
     });
   };
 
   @mobx.action
   clear = () => {
-    this.setFirstOperand("0");
-    this.setSecondOperand("0");
-    this.setOperator(CalcOperatoprsEnum.null);
+    this.setA(0);
+    this.setB(null);
+    this.setOperator(CalcOperatoprsEnum.Null);
+    mobx.runInAction(() => {
+      this.input = "0";
+    });
+  };
 
-    this.setInput("0");
+  @mobx.action
+  inversion = () => {
+    let inv: number;
+
+    if (+this.input < 0) {
+      inv = +this.input * -1;
+    } else {
+      inv = -Number(this.input);
+    }
+
+    if (this.operator) {
+      this.setB(inv);
+    } else {
+      this.setA(inv);
+    }
+
+    this.setInput(String(inv));
   };
 }

@@ -5,10 +5,9 @@ export default interface ICalcStore {
 }
 
 export enum CalcOperatoprsEnum {
-  "+",
-  "-",
-  "*",
-  "/",
-  "=",
-  null,
+  Null = 0,
+  Plus = "+",
+  Minus = "-",
+  Multiply = "*",
+  Division = "/",
 }

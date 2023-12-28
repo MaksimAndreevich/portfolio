@@ -1,15 +1,3 @@
-// const buttons: Array<{
-//   content: string;
-//   color: "grey" | "orange" | "blueGrey";
-//   role: string;
-//   value: string | number;
-// }> = [
-//   { content: "C", color: "grey", role: "insert", value: "clear" },
-//   { content: "%", color: "grey", role: "insert", value: "percent" },
-//
-//
-// ];
-
 const buttons: Array<{
   content: string;
   color: "grey" | "orange" | "blueGrey";
@@ -36,8 +24,8 @@ const buttons: Array<{
   { content: "+/-", color: "blueGrey", role: "insert", value: "inversion" },
   { content: "÷", color: "orange", role: "operator", value: "/" },
 
-  { content: "RESET", color: "grey", role: "insert", value: "clear" },
-  { content: "=", color: "orange", role: "operator", value: "=" },
+  { content: "RESET", color: "grey", role: "insert", value: "reset" },
+  { content: "=", color: "orange", role: "execute", value: "=" },
 ];
 
 export default buttons;
