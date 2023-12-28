@@ -1,10 +1,8 @@
 import CalculateIcon from "@mui/icons-material/Calculate";
 import CloudIcon from "@mui/icons-material/Cloud";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import QuizIcon from "@mui/icons-material/Quiz";
 import routes from "../../lib/routes";
 import { ISideBarLinkProps } from "../SideBarLink";
-import GitHubIcon from "@mui/icons-material/GitHub";
 
 const linksProjectPages: Array<ISideBarLinkProps> = [
   {
@@ -21,18 +19,6 @@ const linksProjectPages: Array<ISideBarLinkProps> = [
     name: "Weather",
     href: routes.weather,
     icon: <CloudIcon />,
-  },
-  {
-    name: "Quiz",
-    href: routes.quiz,
-    icon: <QuizIcon />,
-    disabled: true,
-  },
-  {
-    name: "GitHub",
-    href: routes.gitHub,
-    icon: <GitHubIcon />,
-    disabled: true,
   },
 ];
 

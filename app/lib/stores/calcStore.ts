@@ -72,7 +72,7 @@ export default class CalcStore implements ICalcStore {
     if (value === "." && !this.input.includes(".")) {
       this.insert(value);
     } else if (typeof value === "number") {
-      this.insert(value);
+      if (this.input.length < 16) this.insert(value);
     }
   };
 
@@ -93,8 +93,6 @@ export default class CalcStore implements ICalcStore {
     mobx.runInAction(() => {
       this.a = value;
     });
-
-    console.log("вставляем в A", this.a);
   };
 
   @mobx.action
@@ -102,8 +100,6 @@ export default class CalcStore implements ICalcStore {
     mobx.runInAction(() => {
       this.b = value;
     });
-
-    console.log("вставляем в В", this.b);
   };
 
   @mobx.action
@@ -111,8 +107,6 @@ export default class CalcStore implements ICalcStore {
     mobx.runInAction(() => {
       this.operator = op;
     });
-
-    console.log("оператор выбран", this.operator);
   };
 
   @mobx.action

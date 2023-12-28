@@ -1,10 +1,9 @@
 "use client";
-import { Box, Paper, TextField } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../lib/hooks/useStore";
 import { useState } from "react";
+import { useStore } from "../../lib/hooks/useStore";
 import AutoScaleTextField from "../AutoScaleTextField";
-import CalcButton from "../CalcButton";
 import CalcButtons from "../CalcButtons";
 
 const Calculator = observer(() => {
@@ -15,9 +14,9 @@ const Calculator = observer(() => {
   return (
     <Box sx={{ height: "auto", width: "100%" }}>
       <Paper elevation={24} sx={{ width: { sx: "100%", sm: "70%" }, height: { sx: "100%", sm: "70%" }, m: "auto", minWidth: 328 }}>
-        {/* <AutoScaleTextField /> */}
+        <AutoScaleTextField />
 
-        <TextField
+        {/* <TextField
           value={calcStore.input}
           id="input calc"
           fullWidth
@@ -29,7 +28,7 @@ const Calculator = observer(() => {
               textAlign: "right",
             },
           }}
-        />
+        /> */}
 
         <CalcButtons />
       </Paper>

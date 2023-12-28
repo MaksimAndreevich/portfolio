@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { IProjectCard } from "../../lib/interfaces";
 
@@ -9,7 +9,7 @@ const ProjectCard = ({ title, description, linkToPage, linkToGit, image }: IProj
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 140 }} title={title}>
+      <CardMedia sx={{ height: 190 }} title={title}>
         {image}
       </CardMedia>
       <CardContent>
