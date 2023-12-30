@@ -23,7 +23,7 @@ const AboutMeTitle = () => {
         <Divider />
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Typography variant="h5">Front-end Developer</Typography>
-          <Typography variant="h5">90 000 ₽</Typography>
+          <Typography variant="h5">150 000 ₽</Typography>
         </Box>
 
         <Typography>Specializations:</Typography>
