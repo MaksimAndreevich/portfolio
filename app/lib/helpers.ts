@@ -1,3 +1,4 @@
+import moment from "moment";
 import linksProjectPages from "../ui/sideBarContent/links";
 
 export const getPageName = (path: string): string => {
@@ -7,4 +8,11 @@ export const getPageName = (path: string): string => {
   const currentPage = linksProjectPages.find((link) => link.href === path);
 
   return currentPage?.name || "";
+};
+
+export const getTotalExperienceDate = (startAt: number, endAt: number | null): string => {
+  const start = moment(startAt).format("MMMM YYYY");
+  const end = endAt ? moment(startAt).format("MMMM YYYY") : "the present";
+
+  return `${start} to ${end}`;
 };

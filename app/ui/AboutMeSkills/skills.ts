@@ -1,0 +1,25 @@
+const skills = [
+  "NextJS",
+  "React",
+  "TypeScript",
+  "Mobx",
+  "WebRTC",
+  "Material UI",
+  "CSS",
+  "HTML",
+  "GIT",
+  "NodeJS",
+  "OOP",
+  "JSON",
+  "JavaScript",
+  "Express",
+  "Socket.io",
+  "Adaptive layout",
+  "Time management",
+  "Ability to work in a team",
+  "Code refactoring",
+  "Communicative competence",
+  "Diligence",
+];
+
+export default skills;
