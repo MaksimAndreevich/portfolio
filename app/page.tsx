@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
+import AboutMe from "./ui/AboutMe";
 
 export default function HomePage() {
-  return <Box>HOME PAGE</Box>;
+  return <AboutMe />;
 }

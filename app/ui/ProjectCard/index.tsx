@@ -7,6 +7,11 @@ import { IProjectCard } from "../../lib/interfaces";
 const ProjectCard = ({ title, description, linkToPage, linkToGit, image }: IProjectCard) => {
   const router = useRouter();
 
+  const goToGit = (url: string) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia sx={{ height: 190 }} title={title}>
@@ -24,7 +29,9 @@ const ProjectCard = ({ title, description, linkToPage, linkToGit, image }: IProj
         <Button size="small" onClick={() => router.push(linkToPage)}>
           To Page
         </Button>
-        {/* <Button size="small">Learn More</Button> */}
+        <Button size="small" onClick={() => goToGit(linkToGit)}>
+          See code
+        </Button>
       </CardActions>
     </Card>
   );

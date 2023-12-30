@@ -19,5 +19,5 @@ export interface IProjectCard {
   title: string;
   description: string;
   linkToPage: string;
-  linkToGit?: string;
+  linkToGit: string;
 }
