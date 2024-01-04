@@ -1,6 +1,8 @@
-import { Box } from "@mui/material";
+import { fetchProducts } from "../lib/services/serverRequests";
+import Market from "../ui/Market";
 
-// https://fakestoreapi.com/docs
 export default async function MarketPage() {
-  return <Box>it will be the market</Box>;
+  const products = await fetchProducts();
+
+  return products && <Market products={products} />;
 }

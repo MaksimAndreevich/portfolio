@@ -1,10 +1,9 @@
 import * as mobx from "mobx";
 import moment from "moment";
-import { Filter, ITodo } from "../interfaces";
 import MainService from "../services/mainService";
 import IMainService from "../services/mainService.interface";
 import IMainStore from "./interfaces/mainStore.interface";
-import ITodoStore from "./interfaces/todoStore.interface";
+import ITodoStore, { ITodo, Filter } from "./interfaces/todoStore.interface";
 
 export default class TodoStore implements ITodoStore {
   private mainStore: IMainStore;
@@ -36,14 +35,8 @@ export default class TodoStore implements ITodoStore {
     } else {
       const upcomingTodos = this.todosFromServer
         .filter((t) => t.status === "pending")
-        .sort(
-          (a, b) => moment(b.created_at).unix() - moment(a.created_at).unix()
-        );
-      const completedTodos = this.todosFromServer
-        .filter((t) => t.status === "done")
-        .sort(
-          (a, b) => moment(b.created_at).unix() - moment(a.created_at).unix()
-        );
+        .sort((a, b) => moment(b.created_at).unix() - moment(a.created_at).unix());
+      const completedTodos = this.todosFromServer.filter((t) => t.status === "done").sort((a, b) => moment(b.created_at).unix() - moment(a.created_at).unix());
 
       return upcomingTodos.concat(completedTodos);
     }
