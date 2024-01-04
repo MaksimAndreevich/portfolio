@@ -10,6 +10,7 @@ export const stores = Object.freeze({
   calcStore: mainStore.calcStore,
   todoStore: mainStore.todoStore,
   weatherStore: mainStore.weatherStore,
+  marketStore: mainStore.marketStore,
 });
 
 export const storesContext = React.createContext(stores);

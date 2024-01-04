@@ -11,6 +11,14 @@ const cards: Array<IProjectCard> = [
     linkToPage: routes.todo,
     linkToGit: "https://github.com/MaksimAndreevich/portfolio/blob/main/app/ui/Todo/index.tsx",
   },
+
+  {
+    title: "Market",
+    image: <Image src="/images/projects/market.png" width={345} height={190} alt="Screenshots of market project" />,
+    description: "",
+    linkToPage: routes.market,
+    linkToGit: "#",
+  },
   {
     title: "Weather",
     image: <Image src="/images/projects/weather.png" width={345} height={190} alt="Screenshots of todo project" />,
@@ -27,14 +35,6 @@ const cards: Array<IProjectCard> = [
       "A calculator whose logic is implemented using vanilla javascript - without the use of third-party libraries. An interesting feature is auto scalable input.",
     linkToPage: routes.calc,
     linkToGit: "https://github.com/MaksimAndreevich/portfolio/blob/main/app/ui/Calculator/index.tsx",
-  },
-
-  {
-    title: "Market",
-    image: <Image src="/images/projects/market.png" width={345} height={190} alt="Screenshots of market project" />,
-    description: "",
-    linkToPage: routes.market,
-    linkToGit: "#",
   },
 ];
 

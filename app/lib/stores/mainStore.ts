@@ -8,7 +8,8 @@ import IWeatherStore from "./interfaces/weatherStore.interface";
 import WeatherStore from "./weatherStore";
 import MainService from "../services/mainService";
 import IMainService from "../services/mainService.interface";
-import { dark } from "@mui/material/styles/createPalette";
+import IMarketStore from "./interfaces/marketStore.interface";
+import MarketStore from "./marketStore";
 
 export default class MainStore implements IMainStore {
   readonly service: IMainService;
@@ -16,6 +17,7 @@ export default class MainStore implements IMainStore {
   public readonly todoStore: ITodoStore;
   public readonly calcStore: ICalcStore;
   public readonly weatherStore: IWeatherStore;
+  public readonly marketStore: IMarketStore;
 
   mobileOpen = false;
   modeTheme: "dark" | "light" = "dark";
@@ -26,6 +28,7 @@ export default class MainStore implements IMainStore {
     this.todoStore = new TodoStore(this);
     this.calcStore = new CalcStore(this);
     this.weatherStore = new WeatherStore(this);
+    this.marketStore = new MarketStore(this);
 
     mobx.makeAutoObservable(this);
   }
