@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalMallRoundedIcon from "@mui/icons-material/LocalMallRounded";
 import TabPanel from "../TabPanel";
+import MarketCatalog from "../MarketCatalog";
+import MarketCart from "../MarketCart";
 
 const Market = ({ products }: { products: Array<IProduct> }) => {
   const marketStore = useStore("marketStore");
   const [tab, setTab] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
   };
 
@@ -22,18 +24,21 @@ const Market = ({ products }: { products: Array<IProduct> }) => {
 
   return (
     <Box sx={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
-      <TabPanel value={tab} index={0}>
-        Item One
-      </TabPanel>
+      <Box flexGrow={1} overflow={"auto"} maxHeight={"100%"}>
+        <TabPanel value={tab} index={0}>
+          <MarketCatalog />
+        </TabPanel>
+        <TabPanel value={tab} index={1}>
+          <MarketCart />
+        </TabPanel>
+      </Box>
 
-      <TabPanel value={tab} index={1}>
-        Item Two
-      </TabPanel>
-
-      <Tabs value={tab} onChange={handleChange} centered variant="fullWidth">
-        <Tab icon={<LocalMallRoundedIcon />} label="Catalog" />
-        <Tab icon={<ShoppingCartIcon />} label="Cart" />
-      </Tabs>
+      <Box>
+        <Tabs value={tab} onChange={handleChangeTab} centered variant="fullWidth">
+          <Tab icon={<LocalMallRoundedIcon />} label="Catalog" />
+          <Tab icon={<ShoppingCartIcon />} label="Cart" />
+        </Tabs>
+      </Box>
     </Box>
   );
 };
