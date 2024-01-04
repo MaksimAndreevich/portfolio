@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import workExperience from "./workExperience";
 import { getTotalExperienceDate } from "../../lib/helpers";
 import Link from "next/link";
@@ -11,7 +11,7 @@ const AboutMeWorkExperience = () => {
       <Divider />
       {workExperience.map(({ jobName, jobLocation, link, careerEndAt, careerStartAt, position, aboutJob, myTasks, tasksRealizedByMe }) => {
         return (
-          <Box pt={1}>
+          <Box pt={1} key={jobName + careerStartAt}>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <Typography variant="h5">{jobName}</Typography>
               <Typography variant="subtitle1">{getTotalExperienceDate(careerStartAt, careerEndAt)}</Typography>

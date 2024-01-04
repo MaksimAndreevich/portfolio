@@ -28,6 +28,14 @@ const cards: Array<IProjectCard> = [
     linkToPage: routes.calc,
     linkToGit: "https://github.com/MaksimAndreevich/portfolio/blob/main/app/ui/Calculator/index.tsx",
   },
+
+  {
+    title: "Market",
+    image: <Image src="/images/projects/market.png" width={345} height={190} alt="Screenshots of market project" />,
+    description: "",
+    linkToPage: routes.market,
+    linkToGit: "#",
+  },
 ];
 
 export default cards;

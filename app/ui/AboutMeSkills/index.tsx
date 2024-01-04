@@ -9,8 +9,8 @@ const AboutMeSkills = () => {
       <Divider />
 
       <Stack useFlexGap flexWrap="wrap" direction="row" spacing={1} pt={1} sx={{ maxWidth: "100%" }}>
-        {skills.map((s) => (
-          <Chip label={s} />
+        {skills.map((s, i) => (
+          <Chip label={s} key={i} />
         ))}
       </Stack>
     </Box>
