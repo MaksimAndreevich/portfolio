@@ -16,3 +16,10 @@ export const getTotalExperienceDate = (startAt: number, endAt: number | null): s
 
   return `${start} to ${end}`;
 };
+
+export const formatTitleMarketCard = (title: string): string => {
+  const arr = title.split(" ");
+  arr.length = 7;
+
+  return arr.join(" ");
+};

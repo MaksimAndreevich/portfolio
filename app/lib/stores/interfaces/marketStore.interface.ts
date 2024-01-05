@@ -2,6 +2,8 @@ export default interface IMarketStore {
   products: null | Array<IProduct>;
 
   setProducts: (products: Array<IProduct>) => void;
+  setCountOfProduct: (id: number, count: number) => void;
+  getProduct: (id: number) => IProduct | undefined;
 }
 
 export interface IProduct {
@@ -12,6 +14,8 @@ export interface IProduct {
   category: CategoryEnum;
   image: string;
   rating: { rate: number; count: number };
+
+  count?: number;
 }
 
 export enum CategoryEnum {

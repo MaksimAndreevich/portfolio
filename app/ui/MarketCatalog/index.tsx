@@ -1,23 +1,19 @@
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import ProductCard from "../MarketProductCard";
 import { useStore } from "../../lib/hooks/useStore";
-import { useEffect } from "react";
+import ProductCard from "../MarketProductCard";
 
 const MarketCatalog = observer(() => {
   const marketStore = useStore("marketStore");
 
-  useEffect(() => {
-    console.log(marketStore.products);
-  }, []);
-
   return (
-    <Box>
-      <ProductCard />
-      {/* <ProductCard />
-      <ProductCard /> */}
-      <ProductCard />
-    </Box>
+    <Grid container spacing={1} pb={1}>
+      {marketStore.products?.map(({ id, title, price, image, rating, count }, i) => (
+        <Grid item key={i} xs={12} sm={6} md={4}>
+          <ProductCard id={id} title={title} price={price} imageUrl={image} rating={rating.rate} count={count || 0} />
+        </Grid>
+      ))}
+    </Grid>
   );
 });
 
