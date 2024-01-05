@@ -7,7 +7,7 @@ const MarketCatalog = observer(() => {
   const marketStore = useStore("marketStore");
 
   return (
-    <Grid container spacing={1} pb={1}>
+    <Grid container spacing={1} pb={1} justifyContent={"center"}>
       {marketStore.products?.map(({ id, title, price, image, rating, count }, i) => (
         <Grid item key={i} xs={12} sm={6} md={4}>
           <ProductCard id={id} title={title} price={price} imageUrl={image} rating={rating.rate} count={count || 0} />

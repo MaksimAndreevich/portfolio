@@ -34,17 +34,11 @@ const AppBar = observer(() => {
       }}
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { sm: "none" } }}
-        >
+        <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: "none" } }}>
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          {getPageName(path)}
+          {getPageName(path.split("/")[1])}
         </Typography>
         <IconButton aria-label="toggle theme" onClick={handleToggleTheme}>
           {store.modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}

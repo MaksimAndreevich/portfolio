@@ -17,17 +17,15 @@ const SideBarLink = ({ name, href, icon, disabled }: ISideBarLinkProps) => {
   const pathname = usePathname();
   const store = useStore("mainStore");
 
+  const isCurrentPage = (pathname === "/" && href === "/") || pathname.split("/")[1] === href.substring(1);
+
   const handleClick = () => {
     store.mobileOpen && store.toggleMobileOpen();
   };
 
   return (
     <Link key={name} href={disabled ? "#" : href}>
-      <ListItemButton
-        selected={pathname === href}
-        disabled={disabled}
-        onClick={handleClick}
-      >
+      <ListItemButton selected={isCurrentPage} disabled={disabled} onClick={handleClick}>
         <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText primary={name} />
       </ListItemButton>

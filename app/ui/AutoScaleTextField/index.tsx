@@ -14,8 +14,6 @@ const AutoScaleTextField = observer(() => {
 
   useEffect(() => {
     setFontSize(Math.max(16, 96 / Math.max(1, calcStore.input.length / ratio)));
-
-    console.log(fontSize);
   }, [calcStore.input]);
 
   return (

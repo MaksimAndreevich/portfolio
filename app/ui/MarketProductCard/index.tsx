@@ -23,7 +23,7 @@ export default function ProductCard({ id, title, price, imageUrl, rating, count 
   const router = useRouter();
 
   return (
-    <Card sx={{ maxWidth: 345, height: 400, display: "flex", flexDirection: "column" }}>
+    <Card sx={{ maxWidth: 345, height: 400, display: "flex", flexDirection: "column", m: "auto" }}>
       <CardMedia sx={{ height: "auto", maxHeight: 140, flexGrow: 1 }} image={imageUrl} title={title} component="img" />
 
       <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
