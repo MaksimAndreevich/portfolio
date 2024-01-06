@@ -6,6 +6,8 @@ export default interface IMarketStore {
   setProducts: (products: Array<IProduct>) => void;
   setCountOfProduct: (id: number, count: number) => void;
   getProduct: (id: number) => IProduct | undefined;
+  getTotalAmount: () => number;
+  order: () => void;
 }
 
 export interface IProduct {

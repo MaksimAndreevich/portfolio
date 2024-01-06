@@ -34,7 +34,7 @@ const Market = observer(({ products }: { products: Array<IProduct> }) => {
           <MarketCatalog />
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          <MarketCart />
+          <MarketCart changeTabCallback={(e, tab) => handleChangeTab(e, tab)} />
         </TabPanel>
       </Box>
 

@@ -82,4 +82,24 @@ export default class MarketStore implements IMarketStore {
       this.totalProductsInCart = total;
     });
   };
+
+  @mobx.action
+  getTotalAmount = () => {
+    let total = 0;
+
+    this.cart.forEach((p) => {
+      if (!p.count) return;
+      total += p.price * p.count;
+    });
+    return total;
+  };
+
+  @mobx.action
+  order = () => {
+    mobx.runInAction(() => {
+      this.cart.length = 0;
+      this.products = this.products!.map((p) => ({ ...p, count: 0 }));
+      this.totalProductsInCart = 0;
+    });
+  };
 }
