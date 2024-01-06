@@ -41,7 +41,7 @@ const AppBar = observer(() => {
           {getPageName(path.split("/")[1])}
         </Typography>
         <IconButton aria-label="toggle theme" onClick={handleToggleTheme}>
-          {store.modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
+          {store.modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon sx={{ color: "white" }} />}
         </IconButton>
       </Toolbar>
     </MuiAppBar>

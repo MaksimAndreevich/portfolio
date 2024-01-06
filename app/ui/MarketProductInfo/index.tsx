@@ -32,7 +32,7 @@ const MarketProductInfo = observer(({ id }: { id: string }) => {
     <Grid container spacing={1}>
       <Grid item md={"auto"} xs={12}>
         <Box pt={1} width={"100%"} textAlign={"center"}>
-          <Image unoptimized src={product.image} width={228} height={297} alt="product image" />
+          <Image src={product.image} width={228} height={297} alt="product image" />
         </Box>
       </Grid>
 

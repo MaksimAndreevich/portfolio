@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { observer } from "mobx-react-lite";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { formatTitleMarketCard } from "../../lib/helpers";
 import routes from "../../lib/routes";
@@ -25,7 +26,9 @@ const ProductCard = observer(({ id, title, price, imageUrl, rating, count }: IPr
 
   return (
     <Card sx={{ maxWidth: 345, height: 400, display: "flex", flexDirection: "column", m: "auto" }}>
-      <CardMedia sx={{ height: "auto", maxHeight: 140, flexGrow: 1 }} image={imageUrl} title={title} component="img" />
+      <CardMedia sx={{ height: "auto", maxHeight: 140, flexGrow: 1 }} component={"div"}>
+        <Image src={imageUrl} width={427} height={712} alt="product image" style={{ objectFit: "contain", height: "100%", width: "100%" }} />
+      </CardMedia>
 
       <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
         <Box>

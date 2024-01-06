@@ -1,15 +1,15 @@
 import * as mobx from "mobx";
+import MainService from "../services/mainService";
+import IMainService from "../services/mainService.interface";
 import CalcStore from "./calcStore";
 import ICalcStore from "./interfaces/calcStore.interface";
 import IMainStore from "./interfaces/mainStore.interface";
-import ITodoStore from "./interfaces/todoStore.interface";
-import TodoStore from "./todoStore";
-import IWeatherStore from "./interfaces/weatherStore.interface";
-import WeatherStore from "./weatherStore";
-import MainService from "../services/mainService";
-import IMainService from "../services/mainService.interface";
 import IMarketStore from "./interfaces/marketStore.interface";
+import ITodoStore from "./interfaces/todoStore.interface";
+import IWeatherStore from "./interfaces/weatherStore.interface";
 import MarketStore from "./marketStore";
+import TodoStore from "./todoStore";
+import WeatherStore from "./weatherStore";
 
 export default class MainStore implements IMainStore {
   readonly service: IMainService;
@@ -20,7 +20,7 @@ export default class MainStore implements IMainStore {
   public readonly marketStore: IMarketStore;
 
   mobileOpen = false;
-  modeTheme: "dark" | "light" = "dark";
+  modeTheme: "dark" | "light" = "light";
 
   constructor() {
     this.service = new MainService();
