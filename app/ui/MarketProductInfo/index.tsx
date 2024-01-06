@@ -28,8 +28,6 @@ const MarketProductInfo = observer(({ id }: { id: string }) => {
       </Box>
     );
 
-  console.log(product);
-
   return (
     <Grid container spacing={1}>
       <Grid item md={"auto"} xs={12}>
@@ -55,7 +53,7 @@ const MarketProductInfo = observer(({ id }: { id: string }) => {
       </Grid>
 
       <Grid item xs={12} pt={1}>
-        <IconButton color="primary" onClick={() => router.push(routes.market)}>
+        <IconButton color="primary" onClick={() => router.back()}>
           <KeyboardReturnIcon />
         </IconButton>
       </Grid>

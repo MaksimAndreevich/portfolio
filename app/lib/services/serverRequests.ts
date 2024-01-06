@@ -1,6 +1,5 @@
 import { sql } from "@vercel/postgres";
 import { ITodo } from "../stores/interfaces/todoStore.interface";
-import { IProduct } from "../stores/interfaces/marketStore.interface";
 
 // These requests are executed on the server side
 
@@ -25,11 +24,7 @@ export async function fetchTodos() {
 }
 
 export async function fetchProducts() {
-  let products: null | Array<IProduct> = null;
+  const res = await fetch("https://fakestoreapi.com/products");
 
-  await fetch("https://fakestoreapi.com/products")
-    .then((res) => res.json())
-    .then((json) => (products = json));
-
-  return products;
+  return res.json();
 }

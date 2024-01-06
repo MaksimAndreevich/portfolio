@@ -1,16 +1,17 @@
 "use client";
 
-import { Box, Tab, Tabs } from "@mui/material";
-import { IProduct } from "../../lib/stores/interfaces/marketStore.interface";
-import { useStore } from "../../lib/hooks/useStore";
-import { useEffect, useState } from "react";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalMallRoundedIcon from "@mui/icons-material/LocalMallRounded";
-import TabPanel from "../TabPanel";
-import MarketCatalog from "../MarketCatalog";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Badge, Box, Tab, Tabs } from "@mui/material";
+import { observer } from "mobx-react-lite";
+import { useEffect, useState } from "react";
+import { useStore } from "../../lib/hooks/useStore";
+import { IProduct } from "../../lib/stores/interfaces/marketStore.interface";
 import MarketCart from "../MarketCart";
+import MarketCatalog from "../MarketCatalog";
+import TabPanel from "../TabPanel";
 
-const Market = ({ products }: { products: Array<IProduct> }) => {
+const Market = observer(({ products }: { products: Array<IProduct> }) => {
   const marketStore = useStore("marketStore");
   const [tab, setTab] = useState(0);
 
@@ -19,8 +20,12 @@ const Market = ({ products }: { products: Array<IProduct> }) => {
   };
 
   useEffect(() => {
-    marketStore.setProducts(products);
+    !marketStore.products && bootstrap();
   }, []);
+
+  const bootstrap = () => {
+    marketStore.setProducts(products);
+  };
 
   return (
     <Box sx={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
@@ -36,11 +41,18 @@ const Market = ({ products }: { products: Array<IProduct> }) => {
       <Box>
         <Tabs value={tab} onChange={handleChangeTab} centered variant="fullWidth">
           <Tab icon={<LocalMallRoundedIcon />} label="Catalog" />
-          <Tab icon={<ShoppingCartIcon />} label="Cart" />
+          <Tab
+            icon={
+              <Badge color="primary" badgeContent={marketStore.totalProductsInCart}>
+                <ShoppingCartIcon />
+              </Badge>
+            }
+            label="Cart"
+          />
         </Tabs>
       </Box>
     </Box>
   );
-};
+});
 
 export default Market;

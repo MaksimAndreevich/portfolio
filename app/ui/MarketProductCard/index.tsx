@@ -5,6 +5,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
 import { formatTitleMarketCard } from "../../lib/helpers";
 import routes from "../../lib/routes";
@@ -19,7 +20,7 @@ interface IProductCardProps {
   count: number;
 }
 
-export default function ProductCard({ id, title, price, imageUrl, rating, count }: IProductCardProps) {
+const ProductCard = observer(({ id, title, price, imageUrl, rating, count }: IProductCardProps) => {
   const router = useRouter();
 
   return (
@@ -46,4 +47,6 @@ export default function ProductCard({ id, title, price, imageUrl, rating, count 
       </CardActions>
     </Card>
   );
-}
+});
+
+export default ProductCard;

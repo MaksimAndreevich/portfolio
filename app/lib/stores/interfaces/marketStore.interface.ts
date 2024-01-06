@@ -1,5 +1,7 @@
 export default interface IMarketStore {
   products: null | Array<IProduct>;
+  cart: Array<IProduct>;
+  totalProductsInCart: number;
 
   setProducts: (products: Array<IProduct>) => void;
   setCountOfProduct: (id: number, count: number) => void;
