@@ -3,13 +3,16 @@
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import MenuIcon from "@mui/icons-material/Menu";
+import NotListedLocationSharpIcon from "@mui/icons-material/NotListedLocationSharp";
+import { Box } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { observer } from "mobx-react-lite";
 import { usePathname } from "next/navigation";
-import { getPageName } from "../../lib/helpers";
+import { getDescriptionAboutThisProject, getPageName } from "../../lib/helpers";
 import { useStore } from "../../lib/hooks/useStore";
 import { DRAWER_WIDTH } from "../constants";
 
@@ -37,9 +40,19 @@ const AppBar = observer(() => {
         <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: "none" } }}>
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
-          {getPageName(path.split("/")[1])}
-        </Typography>
+
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography variant="h6" noWrap>
+            {getPageName(path.split("/")[1])}
+          </Typography>
+
+          <Box pl={1}>
+            <Tooltip disableFocusListener title={getDescriptionAboutThisProject(getPageName(path.split("/")[1]))}>
+              <NotListedLocationSharpIcon fontSize="small" />
+            </Tooltip>
+          </Box>
+        </Box>
+
         <IconButton aria-label="toggle theme" onClick={handleToggleTheme}>
           {store.modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon sx={{ color: "white" }} />}
         </IconButton>

@@ -4,7 +4,7 @@ import routes from "../../lib/routes";
 
 const cards: Array<IProjectCard> = [
   {
-    title: "TODO",
+    title: "Todo List",
     image: <Image src="/images/projects/todo.png" width={345} height={190} alt="Screenshots of todo project" />,
     description:
       "Everyone knows our wonderful Todo list, where you can easily add, delete and mark your tasks. Nothing complicated! Simplicity is the key to genius! :) The framework uses PostgreSQL as the database and all actions are executed on the Next.js server. After the actions are executed, Next.js built-in method revalidatePath is called to refresh the page",

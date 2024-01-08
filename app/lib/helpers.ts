@@ -1,4 +1,5 @@
 import moment from "moment";
+import cards from "../ui/AboutThisApp/projectsCards";
 import linksProjectPages from "../ui/sideBarContent/links";
 
 export const getPageName = (path: string): string => {
@@ -22,4 +23,12 @@ export const formatTitleMarketCard = (title: string): string => {
   arr.length = 7;
 
   return arr.join(" ");
+};
+
+export const getDescriptionAboutThisProject = (projectName: string) => {
+  console.log(projectName);
+
+  const project = cards.find((p) => p.title === projectName);
+
+  return project?.description;
 };
