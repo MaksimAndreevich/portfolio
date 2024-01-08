@@ -15,9 +15,10 @@ const cards: Array<IProjectCard> = [
   {
     title: "Market",
     image: <Image src="/images/projects/market.png" width={345} height={190} alt="Screenshots of market project" />,
-    description: "",
+    description:
+      "The store serves as a fictional catalog of an online store. Data is fetched through the API from fakestoreapi.com. Primarily, it serves as a great demonstration of the functionality of MobX store and highlights its convenience in this project.",
     linkToPage: routes.market,
-    linkToGit: "#",
+    linkToGit: "https://github.com/MaksimAndreevich/portfolio/blob/main/app/ui/Market/index.tsx",
   },
   {
     title: "Weather",

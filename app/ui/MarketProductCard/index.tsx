@@ -25,8 +25,8 @@ const ProductCard = observer(({ id, title, price, imageUrl, rating, count }: IPr
   const router = useRouter();
 
   return (
-    <Card sx={{ maxWidth: 345, height: 400, display: "flex", flexDirection: "column", m: "auto" }}>
-      <CardMedia sx={{ height: "auto", maxHeight: 140, flexGrow: 1 }} component={"div"}>
+    <Card elevation={8} sx={{ maxWidth: 345, height: 400, display: "flex", flexDirection: "column", m: "auto" }}>
+      <CardMedia sx={{ height: "auto", maxHeight: 140, flexGrow: 1, mt: 1 }} component={"div"}>
         <Image src={imageUrl} width={427} height={712} alt="product image" style={{ objectFit: "contain", height: "100%", width: "100%" }} />
       </CardMedia>
 

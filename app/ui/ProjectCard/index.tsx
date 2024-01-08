@@ -13,7 +13,7 @@ const ProjectCard = ({ title, description, linkToPage, linkToGit, image }: IProj
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} elevation={8}>
       <CardMedia sx={{ height: 190 }} title={title}>
         {image}
       </CardMedia>
