@@ -41,7 +41,7 @@ const AppBar = observer(() => {
           <MenuIcon />
         </IconButton>
 
-        <Typography variant="h6" noWrap>
+        <Typography variant="h6" noWrap flexGrow={1}>
           {getPageName(path.split("/")[1])}
         </Typography>
 

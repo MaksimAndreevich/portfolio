@@ -91,7 +91,8 @@ export default class MarketStore implements IMarketStore {
       if (!p.count) return;
       total += p.price * p.count;
     });
-    return total;
+
+    return Math.round(total);
   };
 
   @mobx.action

@@ -22,6 +22,9 @@ const ThemeRegistry = observer((props: IThemeRegistryProps) => {
         palette: {
           mode: store.modeTheme,
         },
+        typography: {
+          fontFamily: ["Nunito", "Roboto", '"Helvetica Neue"', "Arial", "sans-serif"].join(","),
+        },
       }),
     [store.modeTheme]
   );
