@@ -12,6 +12,7 @@ import { observer } from "mobx-react-lite";
 import { usePathname } from "next/navigation";
 import { getDescriptionAboutThisProject, getPageName } from "../../lib/helpers";
 import { useStore } from "../../lib/hooks/useStore";
+import AppBarCreateIssueBtn from "../AppBarCreateIssueBtn";
 import AppBarPageInfoBtn from "../AppBarPageInfoBrt";
 import { DRAWER_WIDTH } from "../constants";
 
@@ -46,7 +47,7 @@ const AppBar = observer(() => {
 
         <Box>
           <AppBarPageInfoBtn description={getDescriptionAboutThisProject(getPageName(path.split("/")[1]))} />
-
+          <AppBarCreateIssueBtn />
           <IconButton aria-label="toggle theme" onClick={handleToggleTheme}>
             {store.modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon sx={{ color: "white" }} />}
           </IconButton>

@@ -7,7 +7,7 @@ const AboutMeTitle = () => {
     <Grid container spacing={1}>
       <Grid item md={"auto"} xs={12}>
         <Box pt={1} width={"100%"} textAlign={"center"}>
-          <Image src="/images/aboutMePhoto.jpg" width={210} height={297} alt="my photo" style={{ objectFit: "fill" }} />
+          <Image src="/images/aboutMePhoto.jpg" width={200} height={297} alt="my photo" style={{ objectFit: "fill" }} />
         </Box>
       </Grid>
 
