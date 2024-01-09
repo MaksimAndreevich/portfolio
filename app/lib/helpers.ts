@@ -26,9 +26,7 @@ export const formatTitleMarketCard = (title: string): string => {
 };
 
 export const getDescriptionAboutThisProject = (projectName: string) => {
-  console.log(projectName);
-
   const project = cards.find((p) => p.title === projectName);
 
-  return project?.description;
+  return project?.description || null;
 };
