@@ -22,7 +22,7 @@ const MarketCart = observer(({ changeTabCallback }: IMarketCartProps) => {
 
   const handleOrder = (e: React.SyntheticEvent) => {
     marketStore.order();
-    enqueueSnackbar("Ordered successfully", { variant: "success", po });
+    enqueueSnackbar("Ordered successfully", { variant: "success" });
     changeTabCallback(e, 0);
   };
 
