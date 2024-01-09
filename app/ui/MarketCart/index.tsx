@@ -3,7 +3,9 @@ import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { Box, Button, Divider, IconButton, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import Image from "next/image";
+import { useSnackbar } from "notistack";
 import { useStore } from "../../lib/hooks/useStore";
+
 import MarketProductCounerBtn from "../MarketProductCounerBtn";
 
 interface IMarketCartProps {
@@ -12,6 +14,7 @@ interface IMarketCartProps {
 
 const MarketCart = observer(({ changeTabCallback }: IMarketCartProps) => {
   const marketStore = useStore("marketStore");
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleDelete = (id: number) => {
     marketStore.setCountOfProduct(id, 0);
@@ -19,7 +22,7 @@ const MarketCart = observer(({ changeTabCallback }: IMarketCartProps) => {
 
   const handleOrder = (e: React.SyntheticEvent) => {
     marketStore.order();
-
+    enqueueSnackbar("Ordered successfully", { variant: "success", po });
     changeTabCallback(e, 0);
   };
 
