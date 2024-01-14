@@ -2,12 +2,14 @@ export default interface IMarketStore {
   products: null | Array<IProduct>;
   cart: Array<IProduct>;
   totalProductsInCart: number;
+  currentCategory: CategoryEnum;
 
   setProducts: (products: Array<IProduct>) => void;
   setCountOfProduct: (id: number, count: number) => void;
   getProduct: (id: number) => IProduct | undefined;
   getTotalAmount: () => number;
   order: () => void;
+  changeCategory: (key: keyof typeof CategoryEnum) => void;
 }
 
 export interface IProduct {
@@ -23,6 +25,7 @@ export interface IProduct {
 }
 
 export enum CategoryEnum {
+  all = "all goods",
   electronics = "electronics",
   jewelery = "jewelery",
   mensClothing = "men's clothing",

@@ -1,8 +1,8 @@
 import { Box, Divider, Typography } from "@mui/material";
-import AboutMeTitle from "../AboutMeTitle";
-import AboutMeWorkExperience from "../AboutMeWorkExperience";
 import AboutMeEducation from "../AboutMeEducation";
 import AboutMeSkills from "../AboutMeSkills";
+import AboutMeTitle from "../AboutMeTitle";
+import AboutMeWorkExperience from "../AboutMeWorkExperience";
 
 const AboutMe = () => {
   return (

@@ -45,7 +45,7 @@ const MarketCart = observer(({ changeTabCallback }: IMarketCartProps) => {
           if (!count) return;
 
           return (
-            <>
+            <Box key={id}>
               <ListItem
                 secondaryAction={
                   <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(id)}>
@@ -60,15 +60,15 @@ const MarketCart = observer(({ changeTabCallback }: IMarketCartProps) => {
                 <ListItemText
                   primary={title}
                   secondary={
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Box component={"span"} sx={{ display: "flex", alignItems: "center" }}>
                       <MarketProductCounerBtn count={count} id={id} />
-                      <Typography>Price: {Math.round(count * price)}$</Typography>
+                      <Typography component={"span"}>Price: {Math.round(count * price)}$</Typography>
                     </Box>
                   }
                 />
               </ListItem>
               <Divider />
-            </>
+            </Box>
           );
         })}
       </List>

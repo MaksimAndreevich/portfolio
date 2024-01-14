@@ -27,7 +27,7 @@ const MainContent = ({ children }: { children: React.ReactNode }) => {
         }}
       >
         <Toolbar />
-        <Paper sx={{ p: 2, borderRadius: 0, flexGrow: 1, overflow: "auto", height: "100%" }}>{children}</Paper>
+        <Paper sx={{ pt: 1, px: 1, borderRadius: 0, flexGrow: 1, overflow: "auto", height: "100%" }}>{children}</Paper>
       </Box>
     </SnackbarProvider>
   );

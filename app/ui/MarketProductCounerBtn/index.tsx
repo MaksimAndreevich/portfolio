@@ -18,16 +18,16 @@ const MarketProductCounerBtn = ({ count, id }: { count: number; id: number }) =>
   };
 
   return count ? (
-    <Box sx={{ display: "flex", alignItems: "center", pr: 1 }}>
-      <Box pr={1}>
+    <Box sx={{ display: "flex", alignItems: "center", pr: 1 }} component={"span"}>
+      <Box pr={1} component={"span"}>
         <IconButton aria-label="dec" color="primary" onClick={handleDec} size="small">
           <RemoveIcon />
         </IconButton>
       </Box>
 
-      <Typography>{count}</Typography>
+      <Typography component={"span"}>{count}</Typography>
 
-      <Box pl={1}>
+      <Box pl={1} component={"span"}>
         <IconButton aria-label="inc" color="primary" onClick={handleInc} disabled={count === 10} size="small">
           <AddIcon />
         </IconButton>

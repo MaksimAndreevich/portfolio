@@ -1,11 +1,12 @@
 import * as mobx from "mobx";
 import IMainStore from "./interfaces/mainStore.interface";
-import IMarketStore, { IProduct } from "./interfaces/marketStore.interface";
+import IMarketStore, { CategoryEnum, IProduct } from "./interfaces/marketStore.interface";
 
 export default class MarketStore implements IMarketStore {
   products: Array<IProduct> | null = null;
   cart: Array<IProduct> = [];
   totalProductsInCart = 0;
+  currentCategory: CategoryEnum = CategoryEnum.all;
 
   constructor(mainStore: IMainStore) {
     mobx.makeAutoObservable(this);
@@ -101,6 +102,13 @@ export default class MarketStore implements IMarketStore {
       this.cart.length = 0;
       this.products = this.products!.map((p) => ({ ...p, count: 0 }));
       this.totalProductsInCart = 0;
+    });
+  };
+
+  @mobx.action
+  changeCategory = (key: keyof typeof CategoryEnum) => {
+    mobx.runInAction(() => {
+      this.currentCategory = CategoryEnum[key];
     });
   };
 }
