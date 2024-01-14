@@ -36,12 +36,7 @@ const TodoInput = observer(() => {
           pr: 0.5,
         }}
       >
-        <IconButton
-          color="primary"
-          aria-label="add todo"
-          type="submit"
-          onClick={handleAddTodo}
-        >
+        <IconButton color="primary" aria-label="add todo" type="submit" onClick={handleAddTodo}>
           <AddIcon />
         </IconButton>
       </Box>

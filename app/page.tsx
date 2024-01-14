@@ -1,4 +1,4 @@
-import AboutMe from "./ui/AboutMe";
+import AboutMe from "../ui/AboutMe";
 
 export default function HomePage() {
   return <AboutMe />;

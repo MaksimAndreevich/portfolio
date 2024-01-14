@@ -1,7 +1,7 @@
 import { Box, Divider, Typography } from "@mui/material";
-import workExperience from "./workExperience";
-import { getTotalExperienceDate } from "../../lib/helpers";
 import Link from "next/link";
+import { getTotalExperienceDate } from "../../lib/helpers";
+import workExperience from "./workExperience";
 
 const AboutMeWorkExperience = () => {
   return (

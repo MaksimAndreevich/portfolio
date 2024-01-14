@@ -1,5 +1,5 @@
-import { fetchTodos } from "../lib/services/serverRequests";
-import Todo from "../ui/Todo";
+import { fetchTodos } from "../../lib/services/serverRequests";
+import Todo from "../../ui/Todo";
 
 export const dynamic = "force-dynamic";
 

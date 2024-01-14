@@ -1,12 +1,12 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import WeatherInput from "../WeatherInput";
-import WeatherCurrentInfo from "../WeatherCurrentInfo";
-import { useStore } from "../../lib/hooks/useStore";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
+import { useStore } from "../../lib/hooks/useStore";
 import ForcastCards from "../ForcastCards";
+import WeatherCurrentInfo from "../WeatherCurrentInfo";
+import WeatherInput from "../WeatherInput";
 
 const WeatherView = observer(() => {
   const weatherStore = useStore("weatherStore");
@@ -16,7 +16,7 @@ const WeatherView = observer(() => {
   }, []);
 
   return (
-    <Box>
+    <Box pl={1}>
       <WeatherInput />
 
       {weatherStore.weatherData?.id ? (

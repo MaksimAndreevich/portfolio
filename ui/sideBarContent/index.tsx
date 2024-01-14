@@ -12,27 +12,13 @@ const sideBarContent = (
     <Toolbar />
     <Divider />
     <List>
-      <SideBarLink
-        name={"About Me"}
-        href={routes.root}
-        icon={<CoPresentIcon />}
-      />
-      <SideBarLink
-        name={"About This App"}
-        href={routes.aboutThisApp}
-        icon={<InfoIcon />}
-      />
+      <SideBarLink name={"About Me"} href={routes.root} icon={<CoPresentIcon />} />
+      <SideBarLink name={"About This App"} href={routes.aboutThisApp} icon={<InfoIcon />} />
     </List>
     <Divider />
     <List>
       {linksProjectPages.map(({ name, href, icon, disabled }) => (
-        <SideBarLink
-          name={name}
-          key={name}
-          href={href}
-          icon={icon}
-          disabled={disabled}
-        />
+        <SideBarLink name={name} key={name} href={href} icon={icon} disabled={disabled} />
       ))}
     </List>
   </div>

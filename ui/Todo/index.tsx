@@ -3,10 +3,10 @@
 import { Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../lib/hooks/useStore";
+import { ITodo } from "../../lib/stores/interfaces/todoStore.interface";
 import TodoFilterButtons from "../TodoFilterButtons";
 import TodoInput from "../TodoInput";
 import TodoList from "../TodoList";
-import { ITodo } from "../../lib/stores/interfaces/todoStore.interface";
 
 interface ITodoProps {
   todosFromServer: Array<ITodo>;

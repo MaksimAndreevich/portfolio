@@ -2,9 +2,9 @@
 
 import { Box, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../lib/hooks/useStore";
 import moment from "moment";
 import Image from "next/image";
+import { useStore } from "../../lib/hooks/useStore";
 
 const WeatherCurrentInfo = observer(() => {
   const weatherStore = useStore("weatherStore");

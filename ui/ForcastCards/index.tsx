@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import ForcastCard from "../ForcastCard";
-import { useStore } from "../../lib/hooks/useStore";
 import { observer } from "mobx-react-lite";
+import { useStore } from "../../lib/hooks/useStore";
+import ForcastCard from "../ForcastCard";
 
 const ForcastCards = observer(() => {
   const weatherStore = useStore("weatherStore");

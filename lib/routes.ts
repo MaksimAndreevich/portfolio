@@ -5,6 +5,7 @@ const routes = {
   calc: "/calc",
   weather: "/weather",
   market: "/market",
+  memo: "/memo",
 };
 
 export default routes;

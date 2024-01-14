@@ -1,6 +1,6 @@
 "use client";
 
-import { TextField, Box, IconButton, Autocomplete } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import SearchIcon from "@mui/icons-material/Search";

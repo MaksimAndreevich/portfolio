@@ -2,12 +2,12 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import type { Metadata } from "next";
 import * as React from "react";
-import AppBar from "./ui/AppBar";
-import MainContent from "./ui/MainContent";
-import Navigation from "./ui/Navigation";
-import ThemeRegistry from "./ui/ThemeRegistry";
+import AppBar from "../ui/AppBar";
+import MainContent from "../ui/MainContent";
+import Navigation from "../ui/Navigation";
+import ThemeRegistry from "../ui/ThemeRegistry";
 
-import "./ui/global.css";
+import "../ui/global.css";
 
 export const metadata: Metadata = {
   title: "Portfolio",

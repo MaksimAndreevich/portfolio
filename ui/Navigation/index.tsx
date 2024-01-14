@@ -15,10 +15,7 @@ const Navigation = observer(() => {
   };
 
   return (
-    <Box
-      component="nav"
-      sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
-    >
+    <Box component="nav" sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}>
       <Drawer
         variant="temporary"
         open={store.mobileOpen}

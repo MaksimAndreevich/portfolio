@@ -1,9 +1,10 @@
 import CalculateIcon from "@mui/icons-material/Calculate";
 import CloudIcon from "@mui/icons-material/Cloud";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import routes from "../../lib/routes";
 import { ISideBarLinkProps } from "../SideBarLink";
-import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 
 const linksProjectPages: Array<ISideBarLinkProps> = [
   {
@@ -25,6 +26,11 @@ const linksProjectPages: Array<ISideBarLinkProps> = [
     name: "Calculator",
     href: routes.calc,
     icon: <CalculateIcon />,
+  },
+  {
+    name: "Memo Game",
+    href: routes.memo,
+    icon: <SportsEsportsIcon />,
   },
 ];
 
