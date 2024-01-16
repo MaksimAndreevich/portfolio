@@ -5,9 +5,11 @@ import CalcStore from "./calcStore";
 import ICalcStore from "./interfaces/calcStore.interface";
 import IMainStore from "./interfaces/mainStore.interface";
 import IMarketStore from "./interfaces/marketStore.interface";
+import IMemoStore from "./interfaces/memoStore.interface";
 import ITodoStore from "./interfaces/todoStore.interface";
 import IWeatherStore from "./interfaces/weatherStore.interface";
 import MarketStore from "./marketStore";
+import MemoStore from "./memoStore";
 import TodoStore from "./todoStore";
 import WeatherStore from "./weatherStore";
 
@@ -18,6 +20,7 @@ export default class MainStore implements IMainStore {
   public readonly calcStore: ICalcStore;
   public readonly weatherStore: IWeatherStore;
   public readonly marketStore: IMarketStore;
+  public readonly memoStore: IMemoStore;
 
   mobileOpen = false;
   modeTheme: "dark" | "light" = "light";
@@ -29,6 +32,7 @@ export default class MainStore implements IMainStore {
     this.calcStore = new CalcStore(this);
     this.weatherStore = new WeatherStore(this);
     this.marketStore = new MarketStore(this);
+    this.memoStore = new MemoStore(this);
 
     mobx.makeAutoObservable(this);
   }
