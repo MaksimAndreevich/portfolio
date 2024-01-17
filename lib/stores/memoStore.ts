@@ -3,11 +3,17 @@ import { createUid } from "../helpers";
 import IMainStore from "./interfaces/mainStore.interface";
 import IMemoStore, { IMemoCard, IMemoImage, MemoDifficultEnum } from "./interfaces/memoStore.interface";
 
+const delay = (ms: number) => new Promise((_) => setTimeout(_, ms));
 export default class MemoStore implements IMemoStore {
   images: Array<IMemoImage> = [];
   cards: Array<IMemoCard> = [];
   currentDifficult: MemoDifficultEnum | null = null;
   score: number = 0;
+
+  firstCardId: IMemoCard | null = null;
+  secondCardId: IMemoCard | null = null;
+
+  showedCardsTimer: NodeJS.Timeout | null = null;
 
   constructor(mainStore: IMainStore) {
     mobx.makeAutoObservable(this);
@@ -76,8 +82,14 @@ export default class MemoStore implements IMemoStore {
 
   @mobx.action
   newGame = () => {
+    if (this.showedCardsTimer) return;
+
     this.setScore(0);
     this.prepareForCards();
+    this.showAllCards();
+
+    this.firstCardId = null;
+    this.secondCardId = null;
   };
 
   @mobx.action
@@ -87,5 +99,59 @@ export default class MemoStore implements IMemoStore {
     mobx.runInAction(() => {
       this.cards[index].isFlipped = on;
     });
+  };
+
+  @mobx.action
+  showAllCards = () => {
+    if (this.showedCardsTimer) return;
+
+    this.cards.forEach((c) => this.setIsFlipped(true, c.uid));
+    this.showedCardsTimer = setTimeout(this.hideAllCards, 3000);
+  };
+
+  @mobx.action
+  hideAllCards = () => {
+    this.cards.forEach((c) => this.setIsFlipped(false, c.uid));
+    this.showedCardsTimer = null;
+  };
+
+  @mobx.action
+  chooseCard = (uid: string) => {
+    const targetCard = this.cards.find((c) => c.uid === uid) || null;
+
+    if (!this.firstCardId) {
+      this.firstCardId = targetCard;
+      console.log("выбираем первую карту");
+    } else {
+      this.secondCardId = targetCard;
+      console.log("выбираем вторую карту");
+
+      this.matchCards();
+    }
+  };
+
+  @mobx.action
+  matchCards = async () => {
+    if (!this.firstCardId || !this.secondCardId) return false;
+    this.showedCardsTimer = await setTimeout(this.hideAllCards, 1000);
+
+    const isMatched = this.firstCardId.image.id === this.secondCardId.image.id;
+
+    if (isMatched) {
+      await delay(800);
+      this.cards.forEach((c, i) => {
+        if (c.image.id === this.firstCardId?.image.id) {
+          mobx.runInAction(() => {
+            this.cards[i].matched = true;
+          });
+        }
+      });
+
+      this.setScore(this.score + 100);
+    }
+
+    this.firstCardId = null;
+    this.secondCardId = null;
+    return isMatched;
   };
 }

@@ -1,13 +1,18 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 import { useStore } from "../../lib/hooks/useStore";
 import FlipCard from "../FlipCard";
 
 const MemoGameCards = observer(() => {
   const memoStore = useStore("memoStore");
 
+  useEffect(() => {
+    memoStore.currentDifficult && memoStore.showAllCards();
+  }, [memoStore.currentDifficult]);
+
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", overflow: "hidden" }}>
       <Box alignSelf={"start"} sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
         <Box pl={1}>
           <Button variant="outlined" size="small" onClick={memoStore.newGame}>

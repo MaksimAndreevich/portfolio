@@ -3,11 +3,14 @@ export default interface IMemoStore {
   cards: Array<IMemoCard>;
   currentDifficult: MemoDifficultEnum | null;
   score: number;
+  showedCardsTimer: NodeJS.Timer | null;
 
   setImages: (cards: Array<IMemoImage>) => void;
   setCurrentDifficult: (difficult: MemoDifficultEnum | null) => void;
   newGame: () => void;
   setIsFlipped: (on: boolean, id: string) => void;
+  showAllCards: () => void;
+  chooseCard: (imageId: string) => void;
 }
 
 export interface IMemoImage {

@@ -17,7 +17,10 @@ const FlipCard = observer(({ sx, card }: FlipCardProps) => {
   const memoStore = useStore("memoStore");
 
   const handleFlip = () => {
-    memoStore.setIsFlipped(!isFlipped, uid);
+    if (memoStore.showedCardsTimer || isFlipped) return;
+
+    memoStore.setIsFlipped(true, uid);
+    memoStore.chooseCard(uid);
   };
 
   return (
@@ -53,19 +56,21 @@ const FlipCard = observer(({ sx, card }: FlipCardProps) => {
       }}
       onClick={handleFlip}
     >
-      <Box className="flip-card-inner">
-        <Box className="flip-card-front" />
+      {!matched && (
+        <Box className="flip-card-inner">
+          <Box className="flip-card-front" />
 
-        <Box className="flip-card-back">
-          <Image
-            src={image.urls.regular}
-            width={350}
-            height={250}
-            alt="memo image"
-            style={{ objectFit: "cover", maxHeight: "100%", maxWidth: "100%", height: "100%", width: "100%" }}
-          />
+          <Box className="flip-card-back">
+            <Image
+              src={image.urls.regular}
+              width={350}
+              height={250}
+              alt="memo image"
+              style={{ objectFit: "cover", maxHeight: "100%", maxWidth: "100%", height: "100%", width: "100%" }}
+            />
+          </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   );
 });
