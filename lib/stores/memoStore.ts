@@ -28,7 +28,6 @@ export default class MemoStore implements IMemoStore {
   };
 
   dublicateCards = (cards: Array<IMemoCard>) => {
-    uid: createUid();
     return cards.flatMap((i) => [
       { ...i, uid: createUid() },
       { ...i, uid: createUid() },
@@ -137,8 +136,6 @@ export default class MemoStore implements IMemoStore {
     const isMatched = this.firstCardId.image.id === this.secondCardId.image.id;
 
     if (isMatched) {
-      new Audio("/sounds/memoAudioSuccess.wav").play();
-
       await delay(800);
       this.cards.forEach((c, i) => {
         if (c.image.id === this.firstCardId?.image.id) {
@@ -151,7 +148,6 @@ export default class MemoStore implements IMemoStore {
       this.setScore(this.score + 100);
       this.checkWin();
     } else {
-      new Audio("/sounds/memoAudioFail.wav").play();
     }
 
     this.firstCardId = null;
@@ -162,7 +158,6 @@ export default class MemoStore implements IMemoStore {
   @mobx.action
   checkWin = () => {
     if (this.score >= this.cards.length * 50) {
-      new Audio("/sounds/memoAudioCompleted.wav").play();
       this.setScore(0);
       this.setCurrentDifficult(null);
       this.newGame();
