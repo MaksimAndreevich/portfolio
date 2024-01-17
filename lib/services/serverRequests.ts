@@ -28,3 +28,12 @@ export async function fetchProducts() {
 
   return res.json();
 }
+
+// https://unsplash.com/documentation#get-a-random-photo
+export async function getRandomPhotos(count: number) {
+  const accessKey = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
+
+  const res = await fetch(`https://api.unsplash.com/photos/random?client_id=${accessKey}&count=${count}`);
+
+  return res.json();
+}
