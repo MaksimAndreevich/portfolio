@@ -1,11 +1,15 @@
 "use client";
 
-import { Box, Paper, SxProps, Theme } from "@mui/material";
+import { Box, SxProps, Theme } from "@mui/material";
 import { keyframes } from "@mui/system";
-import { useState } from "react";
+import { observer } from "mobx-react-lite";
+import Image from "next/image";
+import { useStore } from "../../lib/hooks/useStore";
+import { IMemoCard } from "../../lib/stores/interfaces/memoStore.interface";
 
 //https://unsplash.com/random/230x150
 interface FlipCardProps {
+  card: IMemoCard;
   sx?: SxProps<Theme>;
 }
 
@@ -36,36 +40,44 @@ const cardSideSx = {
   backfaceVisibility: "hidden",
 };
 
-const FlipCard = ({ sx }: FlipCardProps) => {
-  const [flipped, setFlipped] = useState(false);
+const FlipCard = observer(({ sx, card }: FlipCardProps) => {
+  const { matched, isShowFront, image, uid } = card;
+
+  const memoStore = useStore("memoStore");
 
   return (
     <Box
-      onClick={() => setFlipped(true)}
+      onClick={() => {
+        console.log(uid);
+
+        memoStore.setShowFront(true, uid);
+      }}
       sx={{
         height: "100%",
         width: "100%",
         cursor: "pointer",
         position: "relative",
-        animation: flipped ? `${flipBack} 2s none ease` : "",
-        transition: "all 1.5s ease",
+        animation: isShowFront ? `${flipBack} 2s none ease` : "",
+        transition: "all 1s ease",
         transformStyle: "preserve-3d",
+        perspective: 1000,
+
         ...sx,
       }}
-      onAnimationEnd={() => setFlipped(false)}
+      onAnimationEnd={() => {}}
     >
-      <Paper
+      <Box
         id="memo-card-front-image"
-        elevation={16}
         sx={{
           transform: "rotateY(180deg)",
-          background: "linear-gradient(to left top, #e7e7e7, #00ff40)",
 
           // transformStyle: "preserve-3d",
           // animation: flipped ? `${flipBack} 2s none ease` : "",
           ...cardSideSx,
         }}
-      />
+      >
+        <Image src={image.urls.regular} width={350} height={250} alt="memo image" style={{ objectFit: "cover", maxHeight: "100%", maxWidth: "100%" }} />
+      </Box>
 
       <Box
         id="memo-card-back-cover"
@@ -75,9 +87,11 @@ const FlipCard = ({ sx }: FlipCardProps) => {
           // transform: "roteteY(180deg)",
           ...cardSideSx,
         }}
-      ></Box>
+      >
+        BACK я в массиве по номером {memoStore.cards.findIndex((c) => c.uid === uid)}
+      </Box>
     </Box>
   );
-};
+});
 
 export default FlipCard;

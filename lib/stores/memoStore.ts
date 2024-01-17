@@ -1,4 +1,5 @@
 import * as mobx from "mobx";
+import { createUid } from "../helpers";
 import IMainStore from "./interfaces/mainStore.interface";
 import IMemoStore, { IMemoCard, IMemoImage, MemoDifficultEnum } from "./interfaces/memoStore.interface";
 
@@ -20,7 +21,11 @@ export default class MemoStore implements IMemoStore {
   };
 
   dublicateCards = (cards: Array<IMemoCard>) => {
-    return cards.flatMap((i) => [i, i]);
+    uid: createUid();
+    return cards.flatMap((i) => [
+      { ...i, uid: createUid() },
+      { ...i, uid: createUid() },
+    ]);
   };
 
   shuffleCards = (cards: Array<IMemoCard>) => {
@@ -42,12 +47,47 @@ export default class MemoStore implements IMemoStore {
     mobx.runInAction(() => {
       this.currentDifficult = difficult;
     });
+
+    difficult && this.prepareForCards();
   };
 
   @mobx.action
   setScore = (score: number) => {
     mobx.runInAction(() => {
       this.score = score;
+    });
+  };
+
+  @mobx.action
+  prepareForCards = () => {
+    if (!this.currentDifficult) return;
+
+    const filteredCards: Array<IMemoCard> = this.images
+      .filter((image, i) => i < +this.currentDifficult! / 2)
+      .map((image) => ({ image: { id: image.id, urls: image.urls }, matched: false, isShowFront: false, uid: "" }));
+
+    const dublicatedCards = this.dublicateCards(filteredCards);
+    const shuffledCards = this.shuffleCards(dublicatedCards);
+
+    mobx.runInAction(() => {
+      this.cards = shuffledCards;
+    });
+  };
+
+  @mobx.action
+  newGame = () => {
+    this.setScore(0);
+    this.prepareForCards();
+  };
+
+  @mobx.action
+  setShowFront = (on: boolean, uid: string) => {
+    const index = this.cards.findIndex((c) => c.uid === uid);
+
+    console.log(index);
+
+    mobx.runInAction(() => {
+      this.cards[index].isShowFront = on;
     });
   };
 }

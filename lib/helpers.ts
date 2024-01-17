@@ -30,3 +30,7 @@ export const getDescriptionAboutThisProject = (projectName: string) => {
 
   return project?.description || null;
 };
+
+export const createUid = () => {
+  return "id" + Math.random().toString(16).slice(2);
+};
