@@ -12,7 +12,7 @@ export default interface IMemoStore {
 
 export interface IMemoImage {
   id: string;
-  urls: { full: string; regular: string; small: string };
+  urls: { full?: string; regular: string; small?: string };
 }
 
 export interface IMemoCard {
