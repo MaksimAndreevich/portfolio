@@ -17,7 +17,7 @@ const FlipCard = observer(({ sx, card }: FlipCardProps) => {
   const memoStore = useStore("memoStore");
 
   const handleFlip = () => {
-    if (memoStore.showedCardsTimer || isFlipped) return;
+    if (memoStore.showedCardsTimer || isFlipped || matched) return;
 
     memoStore.setIsFlipped(true, uid);
     memoStore.chooseCard(uid);
@@ -52,6 +52,7 @@ const FlipCard = observer(({ sx, card }: FlipCardProps) => {
           transform: "rotateY(180deg)",
           padding: 0,
         },
+
         ...sx,
       }}
       onClick={handleFlip}

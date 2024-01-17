@@ -4,6 +4,9 @@ import IMainStore from "./interfaces/mainStore.interface";
 import IMemoStore, { IMemoCard, IMemoImage, MemoDifficultEnum } from "./interfaces/memoStore.interface";
 
 const delay = (ms: number) => new Promise((_) => setTimeout(_, ms));
+
+const audioMatched = new Audio("/sounds/memoAudioSuccess.wav");
+
 export default class MemoStore implements IMemoStore {
   images: Array<IMemoImage> = [];
   cards: Array<IMemoCard> = [];
@@ -121,10 +124,8 @@ export default class MemoStore implements IMemoStore {
 
     if (!this.firstCardId) {
       this.firstCardId = targetCard;
-      console.log("выбираем первую карту");
     } else {
       this.secondCardId = targetCard;
-      console.log("выбираем вторую карту");
 
       this.matchCards();
     }
@@ -138,6 +139,8 @@ export default class MemoStore implements IMemoStore {
     const isMatched = this.firstCardId.image.id === this.secondCardId.image.id;
 
     if (isMatched) {
+      audioMatched.play();
+
       await delay(800);
       this.cards.forEach((c, i) => {
         if (c.image.id === this.firstCardId?.image.id) {
@@ -148,6 +151,7 @@ export default class MemoStore implements IMemoStore {
       });
 
       this.setScore(this.score + 100);
+    } else {
     }
 
     this.firstCardId = null;
