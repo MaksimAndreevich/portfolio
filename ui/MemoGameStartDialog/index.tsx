@@ -16,7 +16,13 @@ const MemoGameStartDialog = observer(() => {
   };
 
   return (
-    <Dialog open={!memoStore.currentDifficult}>
+    <Dialog
+      open={!memoStore.currentDifficult}
+      // enable position inside main container (modal and backdrop)
+      // container={() => document.getElementById("main-container")}
+      // sx={{ position: "absolute" }}
+      // slotProps={{ backdrop: { sx: { position: "absolute" } } }}
+    >
       <DialogTitle>Сhoose a difficulty</DialogTitle>
 
       <List sx={{ pt: 0 }}>

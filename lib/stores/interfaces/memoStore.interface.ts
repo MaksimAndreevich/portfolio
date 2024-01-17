@@ -7,7 +7,7 @@ export default interface IMemoStore {
   setImages: (cards: Array<IMemoImage>) => void;
   setCurrentDifficult: (difficult: MemoDifficultEnum | null) => void;
   newGame: () => void;
-  setShowFront: (on: boolean, id: string) => void;
+  setIsFlipped: (on: boolean, id: string) => void;
 }
 
 export interface IMemoImage {
@@ -18,7 +18,7 @@ export interface IMemoImage {
 export interface IMemoCard {
   image: IMemoImage;
   matched: boolean;
-  isShowFront: boolean;
+  isFlipped: boolean;
   uid: string;
 }
 

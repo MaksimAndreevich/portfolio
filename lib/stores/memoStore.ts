@@ -64,7 +64,7 @@ export default class MemoStore implements IMemoStore {
 
     const filteredCards: Array<IMemoCard> = this.images
       .filter((image, i) => i < +this.currentDifficult! / 2)
-      .map((image) => ({ image: { id: image.id, urls: image.urls }, matched: false, isShowFront: false, uid: "" }));
+      .map((image) => ({ image: { id: image.id, urls: image.urls }, matched: false, isFlipped: false, uid: "" }));
 
     const dublicatedCards = this.dublicateCards(filteredCards);
     const shuffledCards = this.shuffleCards(dublicatedCards);
@@ -81,13 +81,11 @@ export default class MemoStore implements IMemoStore {
   };
 
   @mobx.action
-  setShowFront = (on: boolean, uid: string) => {
+  setIsFlipped = (on: boolean, uid: string) => {
     const index = this.cards.findIndex((c) => c.uid === uid);
 
-    console.log(index);
-
     mobx.runInAction(() => {
-      this.cards[index].isShowFront = on;
+      this.cards[index].isFlipped = on;
     });
   };
 }

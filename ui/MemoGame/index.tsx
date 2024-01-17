@@ -1,5 +1,6 @@
 "use client";
 
+import { Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useStore } from "../../lib/hooks/useStore";
@@ -15,10 +16,10 @@ const MemoGame = observer(({ photos }: { photos: Array<IMemoImage> }) => {
   }, []);
 
   return (
-    <>
+    <Box sx={{ height: "100%", width: "100%", position: "relative" }}>
       <MemoGameStartDialog />
       <MemoGameCards />
-    </>
+    </Box>
   );
 });
 
