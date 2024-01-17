@@ -33,12 +33,15 @@ export async function fetchProducts() {
 
 // https://unsplash.com/documentation#get-a-random-photo
 export async function getRandomPhotos(count: number): Promise<Array<IMemoImage>> {
-  const accessKey = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
+  // TODO: optimaze loading images
+  // const accessKey = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
 
-  const res = await fetch(`https://api.unsplash.com/photos/random?client_id=${accessKey}&count=${count}`);
-  const photos = await res.json();
+  // const res = await fetch(`https://api.unsplash.com/photos/random?client_id=${accessKey}&count=${count}`);
+  // const photos = await res.json();
 
-  if (photos.errors) return memoSpareImages;
+  // if (photos.errors) return memoSpareImages;
 
-  return photos;
+  // return photos;
+
+  return memoSpareImages;
 }
