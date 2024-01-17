@@ -64,7 +64,7 @@ const FlipCard = observer(({ sx, card }: FlipCardProps) => {
           <Box className="flip-card-back">
             <Image
               priority
-              src={image.urls.regular}
+              src={image.urls.small || image.urls.regular}
               width={350}
               height={250}
               alt="memo image"
