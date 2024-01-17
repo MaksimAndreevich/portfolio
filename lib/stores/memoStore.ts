@@ -5,8 +5,6 @@ import IMemoStore, { IMemoCard, IMemoImage, MemoDifficultEnum } from "./interfac
 
 const delay = (ms: number) => new Promise((_) => setTimeout(_, ms));
 
-const audioMatched = new Audio("/sounds/memoAudioSuccess.wav");
-
 export default class MemoStore implements IMemoStore {
   images: Array<IMemoImage> = [];
   cards: Array<IMemoCard> = [];
@@ -139,7 +137,7 @@ export default class MemoStore implements IMemoStore {
     const isMatched = this.firstCardId.image.id === this.secondCardId.image.id;
 
     if (isMatched) {
-      audioMatched.play();
+      new Audio("/sounds/memoAudioSuccess.wav").play();
 
       await delay(800);
       this.cards.forEach((c, i) => {
@@ -151,11 +149,23 @@ export default class MemoStore implements IMemoStore {
       });
 
       this.setScore(this.score + 100);
+      this.checkWin();
     } else {
+      new Audio("/sounds/memoAudioFail.wav").play();
     }
 
     this.firstCardId = null;
     this.secondCardId = null;
     return isMatched;
+  };
+
+  @mobx.action
+  checkWin = () => {
+    if (this.score >= this.cards.length * 50) {
+      new Audio("/sounds/memoAudioCompleted.wav").play();
+      this.setScore(0);
+      this.setCurrentDifficult(null);
+      this.newGame();
+    }
   };
 }
