@@ -3,6 +3,7 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { IProjectCard } from "../../lib/interfaces";
+import ExpandableText from "../ExpandableText";
 
 const ProjectCard = ({ title, description, linkToPage, linkToGit, image }: IProjectCard) => {
   const router = useRouter();
@@ -14,16 +15,15 @@ const ProjectCard = ({ title, description, linkToPage, linkToGit, image }: IProj
 
   return (
     <Card sx={{ maxWidth: 345 }} elevation={8}>
-      <CardMedia sx={{ height: 190 }} title={title}>
+      <CardMedia sx={{ height: 220 }} title={title}>
         {image}
       </CardMedia>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {description}
-        </Typography>
+
+        <ExpandableText text={description} typographyVariant="body2" maxLength={155} />
       </CardContent>
       <CardActions>
         <Button size="small" onClick={() => router.push(linkToPage)}>
