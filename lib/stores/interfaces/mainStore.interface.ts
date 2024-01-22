@@ -17,3 +17,27 @@ export default interface IMainStore {
   toggleMobileOpen: () => void;
   toggleModeTheme: () => void;
 }
+
+export interface ICodewardStats {
+  honor: number;
+  leaderboardPosition: number;
+  ranks: {
+    overall: { rank: number; name: string; color: string; score: number };
+  };
+  codeChallenges: { totalAuthored: number; totalCompleted: number };
+  success: boolean;
+}
+
+export interface ILeetcodeStats {
+  totalSolved: number;
+  totalQuestions: number;
+  easySolved: number;
+  totalEasy: number;
+  mediumSolved: number;
+  totalMedium: number;
+  hardSolved: number;
+  totalHard: number;
+  acceptanceRate: number;
+  ranking: number;
+  status: string;
+}

@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { memoSpareImages } from "../constants";
+import { ICodewardStats, ILeetcodeStats } from "../stores/interfaces/mainStore.interface";
 import { IMemoImage } from "../stores/interfaces/memoStore.interface";
 import { ITodo } from "../stores/interfaces/todoStore.interface";
 
@@ -42,6 +43,20 @@ export async function getRandomPhotos(count: number): Promise<Array<IMemoImage>>
   if (photos.errors) return memoSpareImages;
 
   return photos;
+}
 
-  // return memoSpareImages;
+export async function getLeetcodeStats() {
+  const res = await fetch("https://leetcode-stats-api.herokuapp.com/MaksimAndreevich");
+  const json: ILeetcodeStats = await res.json();
+
+  if (json.status === "error") return null;
+  return json;
+}
+
+export async function getCodewarsStats() {
+  const res = await fetch("https://www.codewars.com/api/v1/users/MaksimAndreevich");
+  const json: ICodewardStats = await res.json();
+
+  if (json.success === false) return null;
+  return json;
 }

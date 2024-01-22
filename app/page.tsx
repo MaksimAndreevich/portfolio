@@ -1,5 +1,5 @@
 import AboutMe from "../ui/AboutMe";
 
-export default function HomePage() {
+export default async function HomePage() {
   return <AboutMe />;
 }
