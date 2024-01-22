@@ -1,14 +1,12 @@
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import moment from "moment";
-import Image from "next/image";
+import AboutMePhoto from "../AboutMePhoto";
 
 const AboutMeTitle = () => {
   return (
     <Grid container spacing={1}>
       <Grid item md={"auto"} xs={12}>
-        <Box pt={1} width={"100%"} textAlign={"center"}>
-          <Image src="/images/aboutMePhoto.jpg" width={200} height={297} alt="my photo" style={{ objectFit: "fill" }} />
-        </Box>
+        <AboutMePhoto />
       </Grid>
 
       <Grid item xs>
