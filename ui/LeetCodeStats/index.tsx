@@ -14,7 +14,8 @@ const LeetCodeStats = ({ stats }: { stats: ILeetcodeStats }) => {
   return (
     <>
       <Typography color={"steelblue"}>LeetCode Stats</Typography>
-      <Grid container sx={{ height: "100%", width: "100%" }}>
+      <Divider />
+      <Grid spacing={1} container sx={{ height: "100%", width: "100%" }}>
         <Grid item md={6} xs={12}>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <Typography>Ranking: </Typography>

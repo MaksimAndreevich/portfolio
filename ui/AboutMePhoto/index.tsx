@@ -12,7 +12,7 @@ const AboutMePhoto = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }}>
       <Box sx={{ textAlign: "center" }}>
-        <Image src="/images/aboutMePhoto.jpg" width={200} height={300} alt="my photo" style={{ objectFit: "fill" }} />
+        <Image priority src="/images/aboutMePhoto.jpg" width={200} height={300} alt="my photo" style={{ objectFit: "fill" }} />
       </Box>
 
       <Button
