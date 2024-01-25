@@ -1,13 +1,17 @@
 import { Box, Divider, Grid, Typography } from "@mui/material";
-import { ICodewardStats } from "../../lib/stores/interfaces/mainStore.interface";
+import { ICodewarsStats } from "../../lib/stores/interfaces/mainStore.interface";
+import StatsChartPie from "../StatsChartPie";
+import { getLanguagesData } from "./getLanguagesData";
 
-const CodewarsStats = ({ stats }: { stats: ICodewardStats }) => {
+const CodewarsStats = ({ stats }: { stats: ICodewarsStats }) => {
   const {
     honor,
     leaderboardPosition,
-    ranks: { overall },
+    ranks: { overall, languages },
     codeChallenges: { totalCompleted },
   } = stats;
+
+  const languagesData = getLanguagesData(languages);
 
   return (
     <>
@@ -15,6 +19,11 @@ const CodewarsStats = ({ stats }: { stats: ICodewardStats }) => {
       <Divider />
       <Grid container sx={{ height: "100%", width: "100%" }}>
         <Grid item md={6} xs={12}>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <Typography>Rank: </Typography>
+            <Typography variant="h6">{overall.name}</Typography>
+          </Box>
+
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <Typography>Honor: </Typography>
             <Typography variant="h6">{honor}</Typography>
@@ -36,16 +45,8 @@ const CodewarsStats = ({ stats }: { stats: ICodewardStats }) => {
           </Box>
         </Grid>
 
-        <Grid item md={6} xs={12} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Typography
-            variant="h3"
-            sx={{
-              fontWeight: "bold",
-              //   color: overall.color,
-            }}
-          >
-            {overall.name}
-          </Typography>
+        <Grid item md={6} xs={12}>
+          {languagesData && <StatsChartPie data={languagesData} />}
         </Grid>
 
         <Divider />

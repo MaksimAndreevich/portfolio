@@ -9,6 +9,7 @@ const AboutMe = () => {
   return (
     <Box>
       <AboutMeTitle />
+      <AboutMeCodeStats />
 
       <AboutMeWorkExperience />
 
@@ -34,8 +35,6 @@ const AboutMe = () => {
         reach new heights is an integral part of life for me. The challenges I face only fuel my interest and motivate me to move forward. I would be happy to
         share my unique skills and enthusiasm with your team!
       </Typography>
-
-      <AboutMeCodeStats />
     </Box>
   );
 };

@@ -18,11 +18,12 @@ export default interface IMainStore {
   toggleModeTheme: () => void;
 }
 
-export interface ICodewardStats {
+export interface ICodewarsStats {
   honor: number;
   leaderboardPosition: number;
   ranks: {
     overall: { rank: number; name: string; color: string; score: number };
+    languages: ICodewarsLanguages;
   };
   codeChallenges: { totalAuthored: number; totalCompleted: number };
   success: boolean;
@@ -40,4 +41,8 @@ export interface ILeetcodeStats {
   acceptanceRate: number;
   ranking: number;
   status: string;
+}
+
+export interface ICodewarsLanguages {
+  [lang: string]: { rank: number; name: string; color: string; score: number };
 }
