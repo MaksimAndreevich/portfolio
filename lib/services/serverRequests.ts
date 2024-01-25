@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { memoSpareImages } from "../constants";
-import { ICodewardStats, ILeetcodeStats } from "../stores/interfaces/mainStore.interface";
+import { ICodewarsStats, ILeetcodeStats } from "../stores/interfaces/mainStore.interface";
 import { IMemoImage } from "../stores/interfaces/memoStore.interface";
 import { ITodo } from "../stores/interfaces/todoStore.interface";
 
@@ -55,7 +55,7 @@ export async function getLeetcodeStats() {
 
 export async function getCodewarsStats() {
   const res = await fetch("https://www.codewars.com/api/v1/users/MaksimAndreevich");
-  const json: ICodewardStats = await res.json();
+  const json: ICodewarsStats = await res.json();
 
   if (json.success === false) return null;
   return json;
