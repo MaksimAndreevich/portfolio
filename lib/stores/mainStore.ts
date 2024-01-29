@@ -1,7 +1,9 @@
 import * as mobx from "mobx";
 import MainService from "../services/mainService";
 import IMainService from "../services/mainService.interface";
+import AccountStore from "./accountStore";
 import CalcStore from "./calcStore";
+import IAccountStore from "./interfaces/accountStore.interface";
 import ICalcStore from "./interfaces/calcStore.interface";
 import IMainStore from "./interfaces/mainStore.interface";
 import IMarketStore from "./interfaces/marketStore.interface";
@@ -21,6 +23,7 @@ export default class MainStore implements IMainStore {
   public readonly weatherStore: IWeatherStore;
   public readonly marketStore: IMarketStore;
   public readonly memoStore: IMemoStore;
+  public readonly accountStore: IAccountStore;
 
   mobileOpen = false;
   modeTheme: "dark" | "light" = "light";
@@ -33,6 +36,7 @@ export default class MainStore implements IMainStore {
     this.weatherStore = new WeatherStore(this);
     this.marketStore = new MarketStore(this);
     this.memoStore = new MemoStore(this);
+    this.accountStore = new AccountStore(this);
 
     mobx.makeAutoObservable(this);
   }

@@ -1,15 +1,15 @@
 "use client";
-import { Box, Button, Link as MuiLink, TextField, Typography } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Box, Button, IconButton, InputAdornment, Link as MuiLink, OutlinedInput, TextField, Typography } from "@mui/material";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useState } from "react";
+import { useFormState } from "react-dom";
 import routes from "../../lib/routes";
 import { authenticate } from "../../lib/services/serverActions";
 
 const AccountLogin = () => {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-  const { pending } = useFormStatus();
-
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,12 +21,18 @@ const AccountLogin = () => {
     setPassword(e.target.value);
   };
 
-  useEffect(() => {}, [errorMessage]);
+  const handleSubmit = (payload: FormData) => {
+    dispatch(payload);
+  };
 
   //TODO: add formik
 
   return (
-    <Box component={"form"} action={dispatch} sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+    <Box
+      component={"form"}
+      action={(payload) => handleSubmit(payload)}
+      sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}
+    >
       <Typography variant="h6">Please login to continue</Typography>
 
       <TextField
@@ -41,19 +47,25 @@ const AccountLogin = () => {
         sx={{ width: 240 }}
       />
 
-      <TextField
+      <OutlinedInput
         value={password}
         onChange={handleSetPassword}
         id="password"
-        type="password"
         name="password"
         placeholder="Enter password min lenght 6"
         required
-        variant="outlined"
-        sx={{ pt: 1, width: 240 }}
+        sx={{ mt: 1, width: 240 }}
+        type={showPassword ? "text" : "password"}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)} edge="end">
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </InputAdornment>
+        }
       />
 
-      <Button type="submit" variant="contained" disabled={pending} sx={{ mt: 1 }}>
+      <Button type="submit" variant="contained" sx={{ mt: 1 }}>
         login
       </Button>
 

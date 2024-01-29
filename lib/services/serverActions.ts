@@ -1,9 +1,11 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
+import bcrypt from "bcrypt";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { signIn, signOut } from "../../auth";
+import { User } from "../stores/interfaces/accountStore.interface";
 
 export async function addTodoToServer(text: string) {
   const status = "pending";
@@ -52,4 +54,15 @@ export async function signOutAction() {
   await signOut();
 }
 
-export async function register() {}
+export async function register(user: Omit<User, "id">) {
+  await sql`
+    INSERT INTO users (name, email, password)
+    VALUES (${user.name}, ${user.email}, ${user.password});
+  `;
+}
+
+export async function createHashPassword(password: string) {
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  return hashedPassword;
+}
