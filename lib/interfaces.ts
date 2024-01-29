@@ -7,3 +7,11 @@ export interface IProjectCard {
   linkToPage: string;
   linkToGit: string;
 }
+
+// to account store
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+};

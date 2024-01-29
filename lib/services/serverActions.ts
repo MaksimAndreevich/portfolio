@@ -1,7 +1,9 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
+import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { signIn, signOut } from "../../auth";
 
 export async function addTodoToServer(text: string) {
   const status = "pending";
@@ -14,10 +16,7 @@ export async function addTodoToServer(text: string) {
   revalidatePath("/todo");
 }
 
-export async function updateTodo(updTodo: {
-  id: string;
-  status: "pending" | "done";
-}) {
+export async function updateTodo(updTodo: { id: string; status: "pending" | "done" }) {
   await sql`
     UPDATE todos
     SET id = ${updTodo.id}, status = ${updTodo.status}
@@ -32,3 +31,25 @@ export async function deleteTodo(id: string) {
 
   revalidatePath("/todo");
 }
+
+export async function authenticate(prevState: string | undefined, formData: FormData) {
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials.";
+        default:
+          return "Something went wrong.";
+      }
+    }
+    throw error;
+  }
+}
+
+export async function signOutAction() {
+  await signOut();
+}
+
+export async function register() {}
