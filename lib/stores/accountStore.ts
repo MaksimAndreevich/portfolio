@@ -21,6 +21,8 @@ export default class AccountStore implements IAccountStore {
 
     const res = await register({ name: name, email: email, password: hashedPassword });
 
-    console.log(res, "REGISTER");
+    if (!("error" in res)) return true;
+
+    return res.errorMessage;
   };
 }

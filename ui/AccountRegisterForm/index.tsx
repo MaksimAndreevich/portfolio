@@ -3,11 +3,18 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Button, IconButton, InputAdornment, Link as MuiLink, OutlinedInput, TextField, Typography } from "@mui/material";
 import Link from "next/link";
+import { useSnackbar } from "notistack";
 import { useState } from "react";
+import { useFormState } from "react-dom";
+import { login } from "../../lib/helpers";
 import { useStore } from "../../lib/hooks/useStore";
 import routes from "../../lib/routes";
+import { authenticate } from "../../lib/services/serverActions";
 
 export default function accountRegisterForm() {
+  const { enqueueSnackbar } = useSnackbar();
+  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+
   const accountStore = useStore("accountStore");
 
   const [name, setName] = useState("");
@@ -34,12 +41,15 @@ export default function accountRegisterForm() {
     setRePassword(e.target.value);
   };
 
-  const handleRegister = () => {
-    // accountStore.register({
-    //   name: name,
-    //   email: email,
-    //   password: password,
-    // });
+  const handleRegister = async () => {
+    const newUser = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
+    const isRegisterSuccess = await accountStore.register(newUser);
+    (isRegisterSuccess === true && login(dispatch, newUser)) || enqueueSnackbar(isRegisterSuccess, { variant: "error" });
   };
 
   return (

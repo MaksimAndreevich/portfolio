@@ -1,6 +1,7 @@
 import moment from "moment";
 import cards from "../ui/AboutThisApp/projectsCards";
 import linksProjectPages from "../ui/sideBarContent/links";
+import { IRegisterFormData } from "./stores/interfaces/accountStore.interface";
 
 export const getPageName = (path: string): string => {
   if (path === "") return "About Me";
@@ -33,4 +34,13 @@ export const getDescriptionAboutThisProject = (projectName: string) => {
 
 export const createUid = () => {
   return "id" + Math.random().toString(16).slice(2);
+};
+
+export const login = (dispatch: (payload: FormData) => void, data: IRegisterFormData) => {
+  const formData = new FormData();
+
+  formData.append("email", data.email);
+  formData.append("password", data.password);
+
+  dispatch(formData);
 };

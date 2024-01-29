@@ -1,5 +1,5 @@
 export default interface IAccountStore {
-  register: (data: IRegisterFormData) => void;
+  register: (data: IRegisterFormData) => Promise<true | string>;
 }
 
 export type User = {

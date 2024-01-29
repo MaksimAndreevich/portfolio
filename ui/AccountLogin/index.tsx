@@ -1,8 +1,11 @@
 "use client";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import GoogleIcon from "@mui/icons-material/Google";
 import { Box, Button, IconButton, InputAdornment, Link as MuiLink, OutlinedInput, TextField, Typography } from "@mui/material";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import routes from "../../lib/routes";
 import { authenticate } from "../../lib/services/serverActions";
@@ -24,6 +27,10 @@ const AccountLogin = () => {
   const handleSubmit = (payload: FormData) => {
     dispatch(payload);
   };
+
+  useEffect(() => {
+    console.log(errorMessage);
+  }, [errorMessage]);
 
   //TODO: add formik
 
@@ -64,6 +71,19 @@ const AccountLogin = () => {
           </InputAdornment>
         }
       />
+      {!!errorMessage && <Typography color={"error"}>{errorMessage}</Typography>}
+
+      <Box display={"flex"} pt={1}>
+        <IconButton disabled sx={{ pr: 1 }}>
+          <GitHubIcon />
+        </IconButton>
+        <IconButton disabled sx={{ pr: 1 }}>
+          <GoogleIcon />
+        </IconButton>
+        <IconButton disabled>
+          <AlternateEmailIcon />
+        </IconButton>
+      </Box>
 
       <Button type="submit" variant="contained" sx={{ mt: 1 }}>
         login

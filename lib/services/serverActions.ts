@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { signIn, signOut } from "../../auth";
+import routes from "../routes";
 import { User } from "../stores/interfaces/accountStore.interface";
 
 export async function addTodoToServer(text: string) {
@@ -15,7 +16,7 @@ export async function addTodoToServer(text: string) {
   VALUES (${status}, ${text})
 `;
 
-  revalidatePath("/todo");
+  revalidatePath(routes.todo);
 }
 
 export async function updateTodo(updTodo: { id: string; status: "pending" | "done" }) {
@@ -25,13 +26,13 @@ export async function updateTodo(updTodo: { id: string; status: "pending" | "don
     WHERE id = ${updTodo.id}
   `;
 
-  revalidatePath("/todo");
+  revalidatePath(routes.todo);
 }
 
 export async function deleteTodo(id: string) {
   await sql`DELETE FROM todos WHERE id = ${id}`;
 
-  revalidatePath("/todo");
+  revalidatePath(routes.todo);
 }
 
 export async function authenticate(prevState: string | undefined, formData: FormData) {
@@ -55,10 +56,26 @@ export async function signOutAction() {
 }
 
 export async function register(user: Omit<User, "id">) {
-  await sql`
+  try {
+    const res = await sql`
     INSERT INTO users (name, email, password)
     VALUES (${user.name}, ${user.email}, ${user.password});
   `;
+
+    revalidatePath(routes.accountRegister);
+
+    return res;
+  } catch (error: any) {
+    console.log(error);
+
+    const errObj = { error: true, errorMessage: "" };
+
+    if (error.code === "23505") {
+      errObj.errorMessage = "User is extst";
+    }
+
+    return errObj;
+  }
 }
 
 export async function createHashPassword(password: string) {
