@@ -1,50 +1,46 @@
 "use client";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
-import { Box, Button, IconButton, InputAdornment, Link as MuiLink, OutlinedInput, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, InputAdornment, Link as MuiLink, TextField, Typography } from "@mui/material";
+import { useFormik } from "formik";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormState } from "react-dom";
+import { createFormData } from "../../lib/helpers";
 import routes from "../../lib/routes";
 import { authenticate } from "../../lib/services/serverActions";
+import AccountLoginProvidersButtons from "../AccountLoginProvidersButtons";
+import validationLoginSchema from "./validationScheme";
 
 const AccountLogin = () => {
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const [errorMessage, signInAction] = useFormState(authenticate, undefined);
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleSetEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handleSetPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (payload: FormData) => {
-    dispatch(payload);
-  };
-
-  useEffect(() => {
-    console.log(errorMessage);
-  }, [errorMessage]);
-
-  //TODO: add formik
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationLoginSchema,
+    onSubmit: (values) => {
+      const formData = createFormData(values);
+      signInAction(formData);
+    },
+  });
 
   return (
     <Box
+      onSubmit={formik.handleSubmit}
       component={"form"}
-      action={(payload) => handleSubmit(payload)}
       sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}
     >
       <Typography variant="h6">Please login to continue</Typography>
 
       <TextField
-        value={email}
-        onChange={handleSetEmail}
+        value={formik.values.email}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
         id="email"
         type="email"
         name="email"
@@ -54,37 +50,33 @@ const AccountLogin = () => {
         sx={{ width: 240 }}
       />
 
-      <OutlinedInput
-        value={password}
-        onChange={handleSetPassword}
+      <TextField
+        value={formik.values.password}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.touched.password && Boolean(formik.errors.password)}
+        helperText={formik.touched.password && formik.errors.password}
         id="password"
         name="password"
-        placeholder="Enter password min lenght 6"
+        placeholder="Enter password"
         required
         sx={{ mt: 1, width: 240 }}
         type={showPassword ? "text" : "password"}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)} edge="end">
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        }
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)} edge="end">
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
       {!!errorMessage && <Typography color={"error"}>{errorMessage}</Typography>}
 
-      <Box display={"flex"} pt={1}>
-        <IconButton disabled sx={{ pr: 1 }}>
-          <GitHubIcon />
-        </IconButton>
-        <IconButton disabled sx={{ pr: 1 }}>
-          <GoogleIcon />
-        </IconButton>
-        <IconButton disabled>
-          <AlternateEmailIcon />
-        </IconButton>
-      </Box>
+      <AccountLoginProvidersButtons />
 
+      {/*TODO: wait for response for loading button state */}
       <Button type="submit" variant="contained" sx={{ mt: 1 }}>
         login
       </Button>

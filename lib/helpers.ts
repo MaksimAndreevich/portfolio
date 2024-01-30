@@ -37,10 +37,17 @@ export const createUid = () => {
 };
 
 export const login = (dispatch: (payload: FormData) => void, data: IRegisterFormData) => {
-  const formData = new FormData();
-
-  formData.append("email", data.email);
-  formData.append("password", data.password);
+  const formData = createFormData({ email: data.email, password: data.password });
 
   dispatch(formData);
+};
+
+export const createFormData = (data: { [key: string]: string }): FormData => {
+  const formData = new FormData();
+
+  for (let key in data) {
+    formData.append(key, data[key]);
+  }
+
+  return formData;
 };
