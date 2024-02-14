@@ -1,7 +1,19 @@
 "use client";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, IconButton, InputAdornment, Link as MuiLink, OutlinedInput, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  Link as MuiLink,
+  OutlinedInput,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Link from "next/link";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
@@ -11,6 +23,8 @@ import { useStore } from "../../lib/hooks/useStore";
 import routes from "../../lib/routes";
 import { authenticate } from "../../lib/services/serverActions";
 import FromLoadingButton from "../FormLoadingButton";
+import { useFormik } from "formik";
+import validationRegisterSchema from "./validationScheme";
 
 export default function accountRegisterForm() {
   const { enqueueSnackbar } = useSnackbar();
@@ -18,65 +32,64 @@ export default function accountRegisterForm() {
 
   const accountStore = useStore("accountStore");
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
-  const [showRePassword, setShowRePassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSetName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
+  // const handleRegister = async () => {
+  //   const newUser = {
+  //     name: name,
+  //     email: email,
+  //     password: password,
+  //   };
 
-  const handleSetEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  //   const isRegisterSuccess = await accountStore.register(newUser);
+  //   (isRegisterSuccess === true && login(dispatch, newUser)) || enqueueSnackbar(isRegisterSuccess, { variant: "error" });
+  // };
 
-  const handleSetPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: validationRegisterSchema,
+    onSubmit: async ({ name, email, password }) => {
+      const newUser = { name, email, password };
+      const isRegisterSuccess = await accountStore.register(newUser);
 
-  const handleSetRePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRePassword(e.target.value);
-  };
-
-  const handleRegister = async () => {
-    const newUser = {
-      name: name,
-      email: email,
-      password: password,
-    };
-
-    const isRegisterSuccess = await accountStore.register(newUser);
-    (isRegisterSuccess === true && login(dispatch, newUser)) || enqueueSnackbar(isRegisterSuccess, { variant: "error" });
-  };
+      (isRegisterSuccess === true && login(dispatch, newUser)) || enqueueSnackbar(isRegisterSuccess, { variant: "error" });
+    },
+  });
 
   return (
     <Box
       component={"form"}
-      action={handleRegister}
+      action={() => formik.handleSubmit()}
       sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}
     >
       <Typography variant="h6">Please register</Typography>
 
       <TextField
-        value={name}
-        onChange={handleSetName}
-        id="userName"
-        // type="text"
-        name="userName"
+        value={formik.values.name}
+        onChange={formik.handleChange}
+        id="name"
+        type="text"
+        name="name"
         placeholder="Enter your name"
         autoComplete="off"
         required
         variant="outlined"
         sx={{ width: 240, pb: 1 }}
+        error={formik.touched.name && Boolean(formik.errors.name)}
+        helperText={formik.touched.name && formik.errors.name}
+        label={"Name"}
+        InputLabelProps={{ required: false }}
       />
 
       <TextField
-        value={email}
-        onChange={handleSetEmail}
+        value={formik.values.email}
+        onChange={formik.handleChange}
         id="email"
         type="email"
         name="email"
@@ -84,46 +97,57 @@ export default function accountRegisterForm() {
         required
         variant="outlined"
         sx={{ width: 240 }}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
+        label={"Email"}
+        InputLabelProps={{ required: false }}
       />
 
-      <OutlinedInput
-        value={password}
-        onChange={handleSetPassword}
-        id="password"
-        type={showPassword ? "text" : "password"}
-        name="password"
-        placeholder="Enter password min lenght 6"
-        required
-        sx={{ mt: 1, width: 240 }}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)} edge="end">
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
+      <FormControl sx={{ my: 1, width: 240 }}>
+        <InputLabel>Password</InputLabel>
+        <OutlinedInput
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          id="password"
+          type={showPassword ? "text" : "password"}
+          name="password"
+          placeholder="Make up a password"
+          required
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)} edge="end">
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          label={"Password"}
+        />
+        {formik.touched.password && Boolean(formik.errors.password) && <FormHelperText error>{formik.errors.password}</FormHelperText>}
+      </FormControl>
 
-      <OutlinedInput
-        value={rePassword}
-        onChange={handleSetRePassword}
-        id="rePassword"
-        type={showRePassword ? "text" : "password"}
-        name="rePassword"
-        placeholder="Repeated password"
-        required
-        sx={{ my: 1, width: 240 }}
-        disabled={!password}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton aria-label="toggle password visibility" onClick={() => setShowRePassword(!showRePassword)} edge="end">
-              {showRePassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
+      <FormControl sx={{ mb: 1, width: 240 }}>
+        <InputLabel>Confirm Password</InputLabel>
+        <OutlinedInput
+          value={formik.values.confirmPassword}
+          onChange={formik.handleChange}
+          id="confirmPassword"
+          type={showConfirmPassword ? "text" : "password"}
+          name="confirmPassword"
+          required
+          disabled={!formik.values.password}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={() => setShowConfirmPassword(!showConfirmPassword)} edge="end">
+                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          label={"Confirm Password"}
+        />
+        {formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword) && <FormHelperText error>{formik.errors.confirmPassword}</FormHelperText>}
+      </FormControl>
 
-      <FromLoadingButton title="Register" />
+      <FromLoadingButton title="Register" disabled={!formik.dirty && formik.isValid} />
 
       <Box sx={{ display: "flex", mt: 1 }}>
         <Typography>If you have an accout you can</Typography>

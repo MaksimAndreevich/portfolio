@@ -50,6 +50,8 @@ const AccountLogin = () => {
         required
         variant="outlined"
         sx={{ width: 240 }}
+        label={"Email"}
+        InputLabelProps={{ required: false }}
       />
 
       <TextField
@@ -64,6 +66,7 @@ const AccountLogin = () => {
         required
         sx={{ my: 1, width: 240 }}
         type={showPassword ? "text" : "password"}
+        label={"Password"}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -73,12 +76,13 @@ const AccountLogin = () => {
             </InputAdornment>
           ),
         }}
+        InputLabelProps={{ required: false }}
       />
       {!!errorMessage && <Typography color={"error"}>{errorMessage}</Typography>}
 
       <AccountLoginProvidersButtons />
 
-      <FromLoadingButton title={"Login"} />
+      <FromLoadingButton title={"Login"} disabled={!formik.dirty && formik.isValid} />
 
       <Box sx={{ display: "flex", mt: 1 }}>
         <Typography>If you don`t have an account you can</Typography>
