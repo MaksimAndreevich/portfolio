@@ -4,15 +4,13 @@ import { Box, Button, IconButton, InputAdornment, Link as MuiLink, TextField, Ty
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useState } from "react";
-import { useFormState } from "react-dom";
 import { createFormData } from "../../lib/helpers";
 import routes from "../../lib/routes";
-import { authenticate } from "../../lib/services/serverActions";
+import { signInAction } from "../../lib/services/serverActions";
 import AccountLoginProvidersButtons from "../AccountLoginProvidersButtons";
 import validationLoginSchema from "./validationScheme";
 
 const AccountLogin = () => {
-  const [errorMessage, signInAction] = useFormState(authenticate, undefined);
   const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
@@ -21,9 +19,9 @@ const AccountLogin = () => {
       password: "",
     },
     validationSchema: validationLoginSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const formData = createFormData(values);
-      signInAction(formData);
+      signInAction("credentials", formData);
     },
   });
 
@@ -72,7 +70,7 @@ const AccountLogin = () => {
           ),
         }}
       />
-      {!!errorMessage && <Typography color={"error"}>{errorMessage}</Typography>}
+      {/* {!!errorMessage && <Typography color={"error"}>{errorMessage}</Typography>} */}
 
       <AccountLoginProvidersButtons />
 

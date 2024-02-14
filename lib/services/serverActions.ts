@@ -6,7 +6,7 @@ import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { signIn, signOut } from "../../auth";
 import routes from "../routes";
-import { User } from "../stores/interfaces/accountStore.interface";
+import { IUser } from "../stores/interfaces/accountStore.interface";
 
 export async function addTodoToServer(text: string) {
   const status = "pending";
@@ -35,27 +35,15 @@ export async function deleteTodo(id: string) {
   revalidatePath(routes.todo);
 }
 
-export async function authenticate(prevState: string | undefined, formData: FormData) {
-  try {
-    await signIn("credentials", formData);
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return "Invalid credentials.";
-        default:
-          return "Something went wrong.";
-      }
-    }
-    throw error;
-  }
-}
-
 export async function signOutAction() {
   await signOut();
 }
 
-export async function register(user: Omit<User, "id">) {
+export async function signInAction(provider: string, FormData: FormData) {
+  return await signIn(provider, FormData);
+}
+
+export async function register(user: Omit<IUser, "id">) {
   try {
     const res = await sql`
     INSERT INTO users (name, email, password)

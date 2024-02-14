@@ -3,17 +3,21 @@
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import { signOutAction } from "../../lib/services/serverActions";
+import { IUser } from "../../lib/stores/interfaces/accountStore.interface";
 
-const Profile = () => {
+const Profile = ({ user }: { user: IUser }) => {
   const handleSignOut = () => {
     signOutAction();
   };
 
+  const { name, email, id } = user;
+
   return (
     <Box>
       PROFILE
-      <Link href={"https://next-auth.js.org/configuration/options"}> configure providers</Link>
-      <Typography>https://next-auth.js.org/configuration/providers/credentials</Typography>
+      <Typography>
+        hello {name}, {email}
+      </Typography>
       <Button onClick={handleSignOut}>signout</Button>
     </Box>
   );
