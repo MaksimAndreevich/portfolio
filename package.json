@@ -16,6 +16,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.18",
+    "@mui/lab": "^5.0.0-alpha.165",
     "@mui/material": "^5.14.18",
     "@mui/x-charts": "^6.19.1",
     "@vercel/postgres": "^0.5.1",

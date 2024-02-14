@@ -9,6 +9,7 @@ import routes from "../../lib/routes";
 import { signInAction } from "../../lib/services/serverActions";
 import AccountLoginProvidersButtons from "../AccountLoginProvidersButtons";
 import validationLoginSchema from "./validationScheme";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const AccountLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,8 +21,10 @@ const AccountLogin = () => {
     },
     validationSchema: validationLoginSchema,
     onSubmit: async (values) => {
+      formik.setSubmitting(true);
       const formData = createFormData(values);
-      signInAction("credentials", formData);
+      await signInAction("credentials", formData);
+      formik.setSubmitting(false);
     },
   });
 
@@ -75,9 +78,10 @@ const AccountLogin = () => {
       <AccountLoginProvidersButtons />
 
       {/*TODO: wait for response for loading button state */}
-      <Button type="submit" variant="contained" sx={{ mt: 1 }}>
+
+      <LoadingButton loading={formik.isSubmitting} type="submit" variant="contained" sx={{ mt: 1 }}>
         login
-      </Button>
+      </LoadingButton>
 
       <Box sx={{ display: "flex" }}>
         <Typography>If you don`t have an account you can</Typography>
