@@ -33,7 +33,7 @@ const AccountLogin = () => {
     <Box
       action={() => formik.handleSubmit()}
       component={"form"}
-      sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}
+      sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: 320, m: "auto" }}
     >
       <Typography variant="h6">Please login to continue</Typography>
 
@@ -49,9 +49,9 @@ const AccountLogin = () => {
         placeholder="Enter your email address"
         required
         variant="outlined"
-        sx={{ width: 240 }}
         label={"Email"}
         InputLabelProps={{ required: false }}
+        fullWidth
       />
 
       <TextField
@@ -64,9 +64,10 @@ const AccountLogin = () => {
         name="password"
         placeholder="Enter password"
         required
-        sx={{ my: 1, width: 240 }}
+        sx={{ my: 1 }}
         type={showPassword ? "text" : "password"}
         label={"Password"}
+        fullWidth
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -84,12 +85,12 @@ const AccountLogin = () => {
 
       <FromLoadingButton title={"Login"} disabled={!formik.dirty && formik.isValid} />
 
-      <Box sx={{ display: "flex", mt: 1 }}>
-        <Typography>If you don`t have an account you can</Typography>
+      <Typography sx={{ mt: 1, whiteSpace: "nowrap" }}>
+        If you don`t have an account you can
         <Link href={routes.accountRegister} passHref legacyBehavior>
           <MuiLink pl={0.5}>register</MuiLink>
         </Link>
-      </Box>
+      </Typography>
     </Box>
   );
 };
