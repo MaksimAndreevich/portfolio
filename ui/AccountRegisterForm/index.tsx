@@ -10,6 +10,7 @@ import { login } from "../../lib/helpers";
 import { useStore } from "../../lib/hooks/useStore";
 import routes from "../../lib/routes";
 import { authenticate } from "../../lib/services/serverActions";
+import FromLoadingButton from "../FormLoadingButton";
 
 export default function accountRegisterForm() {
   const { enqueueSnackbar } = useSnackbar();
@@ -111,7 +112,7 @@ export default function accountRegisterForm() {
         name="rePassword"
         placeholder="Repeated password"
         required
-        sx={{ mt: 1, width: 240 }}
+        sx={{ my: 1, width: 240 }}
         disabled={!password}
         endAdornment={
           <InputAdornment position="end">
@@ -122,11 +123,9 @@ export default function accountRegisterForm() {
         }
       />
 
-      <Button sx={{ mt: 1 }} type="submit" variant="contained">
-        register
-      </Button>
+      <FromLoadingButton title="Register" />
 
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", mt: 1 }}>
         <Typography>If you have an accout you can</Typography>
         <Link href={routes.accountLogin} passHref legacyBehavior>
           <MuiLink pl={0.5}>login</MuiLink>

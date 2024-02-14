@@ -1,17 +1,20 @@
 "use client";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, IconButton, InputAdornment, Link as MuiLink, TextField, Typography } from "@mui/material";
+import { Box, IconButton, InputAdornment, Link as MuiLink, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useState } from "react";
 import { createFormData } from "../../lib/helpers";
 import routes from "../../lib/routes";
-import { signInAction } from "../../lib/services/serverActions";
 import AccountLoginProvidersButtons from "../AccountLoginProvidersButtons";
 import validationLoginSchema from "./validationScheme";
-import LoadingButton from "@mui/lab/LoadingButton";
+import { useFormState } from "react-dom";
+import { authenticate } from "../../lib/services/serverActions";
+import FromLoadingButton from "../FormLoadingButton";
 
 const AccountLogin = () => {
+  const [errorMessage, signInAction] = useFormState(authenticate, undefined);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
@@ -21,16 +24,14 @@ const AccountLogin = () => {
     },
     validationSchema: validationLoginSchema,
     onSubmit: async (values) => {
-      formik.setSubmitting(true);
       const formData = createFormData(values);
-      await signInAction("credentials", formData);
-      formik.setSubmitting(false);
+      await signInAction(formData);
     },
   });
 
   return (
     <Box
-      onSubmit={formik.handleSubmit}
+      action={() => formik.handleSubmit()}
       component={"form"}
       sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}
     >
@@ -61,7 +62,7 @@ const AccountLogin = () => {
         name="password"
         placeholder="Enter password"
         required
-        sx={{ mt: 1, width: 240 }}
+        sx={{ my: 1, width: 240 }}
         type={showPassword ? "text" : "password"}
         InputProps={{
           endAdornment: (
@@ -73,17 +74,13 @@ const AccountLogin = () => {
           ),
         }}
       />
-      {/* {!!errorMessage && <Typography color={"error"}>{errorMessage}</Typography>} */}
+      {!!errorMessage && <Typography color={"error"}>{errorMessage}</Typography>}
 
       <AccountLoginProvidersButtons />
 
-      {/*TODO: wait for response for loading button state */}
+      <FromLoadingButton title={"Login"} />
 
-      <LoadingButton loading={formik.isSubmitting} type="submit" variant="contained" sx={{ mt: 1 }}>
-        login
-      </LoadingButton>
-
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", mt: 1 }}>
         <Typography>If you don`t have an account you can</Typography>
         <Link href={routes.accountRegister} passHref legacyBehavior>
           <MuiLink pl={0.5}>register</MuiLink>
