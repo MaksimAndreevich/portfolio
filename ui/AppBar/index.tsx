@@ -15,6 +15,7 @@ import { useStore } from "../../lib/hooks/useStore";
 import AppBarCreateIssueBtn from "../AppBarCreateIssueBtn";
 import AppBarPageInfoBtn from "../AppBarPageInfoBrt";
 import { DRAWER_WIDTH } from "../constants";
+import AppBarAccountMenu from "../AppBarAccountMenu";
 
 const AppBar = observer(() => {
   const store = useStore("mainStore");
@@ -51,6 +52,7 @@ const AppBar = observer(() => {
           <IconButton aria-label="toggle theme" onClick={handleToggleTheme}>
             {store.modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon sx={{ color: "white" }} />}
           </IconButton>
+          <AppBarAccountMenu />
         </Box>
       </Toolbar>
     </MuiAppBar>

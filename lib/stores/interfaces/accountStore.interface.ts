@@ -1,5 +1,9 @@
 export default interface IAccountStore {
+  user: IUser | null;
+
   register: (data: IRegisterFormData) => Promise<true | string>;
+  setUser: (user: IUser) => void;
+  logout: () => void;
 }
 
 export interface IUser {

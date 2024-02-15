@@ -1,10 +1,12 @@
-import { createHashPassword, register } from "../services/serverActions";
-import IAccountStore, { IRegisterFormData } from "./interfaces/accountStore.interface";
+import { createHashPassword, register, signOutAction } from "../services/serverActions";
+import IAccountStore, { IRegisterFormData, IUser } from "./interfaces/accountStore.interface";
 import IMainStore from "./interfaces/mainStore.interface";
 
 import * as mobx from "mobx";
 
 export default class AccountStore implements IAccountStore {
+  user: IUser | null = null;
+
   mainStore: IMainStore;
 
   constructor(mainStore: IMainStore) {
@@ -24,5 +26,20 @@ export default class AccountStore implements IAccountStore {
     if (!("error" in res)) return true;
 
     return res.errorMessage;
+  };
+
+  @mobx.action
+  setUser = (user: IUser) => {
+    mobx.runInAction(() => {
+      this.user = Object.assign({}, user);
+    });
+  };
+
+  @mobx.action
+  logout = () => {
+    signOutAction();
+    mobx.runInAction(() => {
+      this.user = null;
+    });
   };
 }

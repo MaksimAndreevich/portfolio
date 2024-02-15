@@ -10,7 +10,7 @@ import { ISideBarLinkProps } from "../SideBarLink";
 const linksProjectPages: Array<ISideBarLinkProps> = [
   {
     name: "Account",
-    href: routes.account,
+    href: routes.accountProfile,
     icon: <AccountBoxIcon />,
   },
   {

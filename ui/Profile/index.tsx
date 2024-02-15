@@ -3,21 +3,16 @@
 import { Box, Button, Typography } from "@mui/material";
 import { signOutAction } from "../../lib/services/serverActions";
 import { IUser } from "../../lib/stores/interfaces/accountStore.interface";
+import { useStore } from "../../lib/hooks/useStore";
 
 const Profile = ({ user }: { user: IUser }) => {
-  const handleSignOut = () => {
-    signOutAction();
-  };
-
-  const { name, email, id } = user;
+  const accountStore = useStore("accountStore");
+  accountStore.setUser(user);
 
   return (
     <Box>
       PROFILE
-      <Typography>
-        hello {name}, {email}
-      </Typography>
-      <Button onClick={handleSignOut}>signout</Button>
+      <Typography>hello {accountStore.user?.email},</Typography>
     </Box>
   );
 };

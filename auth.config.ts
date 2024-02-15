@@ -17,6 +17,8 @@ export const authConfig = {
         }
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
+        console.log("redirect to ", new URL(routes.accountProfile, nextUrl));
+
         return Response.redirect(new URL(routes.accountProfile, nextUrl));
       }
 
