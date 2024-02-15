@@ -16,6 +16,7 @@ declare module "next-auth" {
 async function getUser(email: string): Promise<IUser | undefined> {
   try {
     const user = await sql<IUser>`SELECT * FROM users WHERE email=${email}`;
+
     return user.rows[0];
   } catch (error) {
     console.error("Failed to fetch user:", error);

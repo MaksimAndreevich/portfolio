@@ -1,3 +1,5 @@
+import { ITodo } from "./todoStore.interface";
+
 export default interface IAccountStore {
   user: IUser | null;
 
@@ -11,6 +13,8 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
+  // TODO: personal todos
+  todos: Array<ITodo>;
 }
 
 export interface IRegisterFormData {

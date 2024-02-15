@@ -7,19 +7,14 @@ import { Box } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { observer } from "mobx-react-lite";
-import { usePathname } from "next/navigation";
-import { getDescriptionAboutThisProject, getPageName } from "../../lib/helpers";
 import { useStore } from "../../lib/hooks/useStore";
 import AppBarCreateIssueBtn from "../AppBarCreateIssueBtn";
-import AppBarPageInfoBtn from "../AppBarPageInfoBrt";
 import { DRAWER_WIDTH } from "../constants";
 import AppBarAccountMenu from "../AppBarAccountMenu";
 
 const AppBar = observer(() => {
   const store = useStore("mainStore");
-  const path = usePathname();
 
   const handleDrawerToggle = () => {
     store.toggleMobileOpen();
@@ -38,16 +33,13 @@ const AppBar = observer(() => {
       }}
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
-        <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: "none" } }}>
-          <MenuIcon />
-        </IconButton>
-
-        <Typography variant="h6" noWrap flexGrow={1}>
-          {getPageName(path.split("/")[1])}
-        </Typography>
+        <Box sx={{ flexGrow: 1 }}>
+          <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: "none" } }}>
+            <MenuIcon />
+          </IconButton>
+        </Box>
 
         <Box>
-          <AppBarPageInfoBtn description={getDescriptionAboutThisProject(getPageName(path.split("/")[1]))} />
           <AppBarCreateIssueBtn />
           <IconButton aria-label="toggle theme" onClick={handleToggleTheme}>
             {store.modeTheme === "dark" ? <DarkModeIcon /> : <LightModeIcon sx={{ color: "white" }} />}

@@ -94,12 +94,12 @@ const AppBarAccountMenu = () => {
               Profile
             </MenuItem>
 
-            <MenuItem onClick={() => router.push(routes.todo)}>
+            {/* <MenuItem onClick={() => router.push(routes.todo)}>
               <ListItemIcon>
                 <ListAltIcon fontSize="small" />
               </ListItemIcon>
               My Todo List
-            </MenuItem>
+            </MenuItem> */}
             <Divider />
           </Box>
         )}

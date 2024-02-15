@@ -7,7 +7,6 @@ import { revalidatePath } from "next/cache";
 import { signIn, signOut } from "../../auth";
 import routes from "../routes";
 import { IUser } from "../stores/interfaces/accountStore.interface";
-import { redirect } from "next/dist/server/api-utils";
 
 export async function addTodoToServer(text: string) {
   const status = "pending";
@@ -56,7 +55,8 @@ export async function authenticate(prevState: string | undefined, formData: Form
   }
 }
 
-export async function register(user: Omit<IUser, "id">) {
+export async function register(user: Omit<IUser, "id" | "todos">) {
+  //todo: add personal todos []
   try {
     const res = await sql`
     INSERT INTO users (name, email, password)

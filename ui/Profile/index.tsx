@@ -1,19 +1,23 @@
 "use client";
 
-import { Box, Button, Typography } from "@mui/material";
-import { signOutAction } from "../../lib/services/serverActions";
+import { Typography } from "@mui/material";
 import { IUser } from "../../lib/stores/interfaces/accountStore.interface";
 import { useStore } from "../../lib/hooks/useStore";
 
 const Profile = ({ user }: { user: IUser }) => {
   const accountStore = useStore("accountStore");
+
   accountStore.setUser(user);
 
   return (
-    <Box>
-      PROFILE
-      <Typography>hello {accountStore.user?.email},</Typography>
-    </Box>
+    <>
+      <Typography variant="h5" align="center">
+        Hello {accountStore.user?.name}, your profile will be soon...
+      </Typography>
+      <Typography variant="h5" align="center">
+        In the meantime, you can visit my other home projects.
+      </Typography>
+    </>
   );
 };
 
