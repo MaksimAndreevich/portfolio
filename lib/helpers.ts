@@ -1,6 +1,4 @@
 import moment from "moment";
-import cards from "../ui/AboutThisApp/projectsCards";
-import linksProjectPages from "../ui/sideBarContent/links";
 import { IRegisterFormData } from "./stores/interfaces/accountStore.interface";
 
 export const getTotalExperienceDate = (startAt: number, endAt: number | null): string => {

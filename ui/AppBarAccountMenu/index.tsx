@@ -1,10 +1,11 @@
+"use client";
+
 import { Settings, Logout, Login } from "@mui/icons-material";
 import { Tooltip, IconButton, Avatar, Menu, MenuItem, Divider, ListItemIcon, Box } from "@mui/material";
 import { useState } from "react";
 import { useStore } from "../../lib/hooks/useStore";
 import { useRouter } from "next/navigation";
 import routes from "../../lib/routes";
-import ListAltIcon from "@mui/icons-material/ListAlt";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 
 const AppBarAccountMenu = () => {
@@ -36,7 +37,7 @@ const AppBarAccountMenu = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>{accountStore.user?.name[0].toLocaleUpperCase() || "?"}</Avatar>
+          <Avatar sx={{ width: 24, height: 24 }} />
         </IconButton>
       </Tooltip>
 
