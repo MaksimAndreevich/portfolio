@@ -17,7 +17,7 @@ const SideBarLink = ({ name, href, icon, disabled }: ISideBarLinkProps) => {
   const pathname = usePathname();
   const store = useStore("mainStore");
 
-  const isCurrentPage = (pathname === "/" && href === "/") || pathname.split("/")[1] === href.substring(1).split("/")[0];
+  const isCurrentPage = (pathname === "/" && href === "/") || pathname === href;
 
   const handleClick = () => {
     store.mobileOpen && store.toggleMobileOpen();

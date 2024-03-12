@@ -4,23 +4,11 @@ import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { authConfig } from "./auth.config";
 import "next-auth";
-import { sql } from "@vercel/postgres";
-import { IUser } from "./lib/stores/interfaces/accountStore.interface";
+import { getUser } from "./lib/services/serverActions";
 
 declare module "next-auth" {
   interface Session {
-    user?: IUser;
-  }
-}
-
-async function getUser(email: string): Promise<IUser | undefined> {
-  try {
-    const user = await sql<IUser>`SELECT * FROM users WHERE email=${email}`;
-
-    return user.rows[0];
-  } catch (error) {
-    console.error("Failed to fetch user:", error);
-    throw new Error("Failed to fetch user.");
+    user?: { name: string; email: string };
   }
 }
 

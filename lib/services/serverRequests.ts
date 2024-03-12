@@ -1,30 +1,6 @@
-import { sql } from "@vercel/postgres";
-import { memoSpareImages } from "../constants";
-import { ICodewarsStats, ILeetcodeStats } from "../stores/interfaces/mainStore.interface";
-import { IMemoImage } from "../stores/interfaces/memoStore.interface";
-import { ITodo } from "../stores/interfaces/todoStore.interface";
-
-// These requests are executed on the server side
-
-export async function fetchTodos() {
-  try {
-    const data = await sql<ITodo>`
-            SELECT
-              id,
-              status,
-              title,
-              created_at
-            FROM todos
-          `;
-
-    const todos = data.rows;
-
-    return todos;
-  } catch (err) {
-    console.error("Database Error:", err);
-    throw new Error("Failed to fetch all todos.");
-  }
-}
+import {memoSpareImages} from "../constants";
+import {ICodewarsStats, ILeetcodeStats} from "../stores/interfaces/mainStore.interface";
+import {IMemoImage} from "../stores/interfaces/memoStore.interface";
 
 export async function fetchProducts() {
   const res = await fetch("https://fakestoreapi.com/products");

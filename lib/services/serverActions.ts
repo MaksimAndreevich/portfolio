@@ -1,12 +1,12 @@
 "use server";
 
-import { sql } from "@vercel/postgres";
+import {sql} from "@vercel/postgres";
 import bcrypt from "bcrypt";
-import { AuthError } from "next-auth";
-import { revalidatePath } from "next/cache";
-import { signIn, signOut } from "../../auth";
+import {AuthError} from "next-auth";
+import {revalidatePath} from "next/cache";
+import {signIn, signOut} from "../../auth";
 import routes from "../routes";
-import { IUser } from "../stores/interfaces/accountStore.interface";
+import {IUser} from "../stores/interfaces/accountStore.interface";
 
 export async function addTodoToServer(text: string) {
   const status = "pending";
@@ -16,23 +16,23 @@ export async function addTodoToServer(text: string) {
   VALUES (${status}, ${text})
 `;
 
-  revalidatePath(routes.todo);
+  revalidatePath(routes.accountProfileTodo);
 }
 
-export async function updateTodo(updTodo: { id: string; status: "pending" | "done" }) {
+export async function updateTodo(updTodo: {id: string; status: "pending" | "done"}) {
   await sql`
     UPDATE todos
     SET id = ${updTodo.id}, status = ${updTodo.status}
     WHERE id = ${updTodo.id}
   `;
 
-  revalidatePath(routes.todo);
+  revalidatePath(routes.accountProfileTodo);
 }
 
 export async function deleteTodo(id: string) {
   await sql`DELETE FROM todos WHERE id = ${id}`;
 
-  revalidatePath(routes.todo);
+  revalidatePath(routes.accountProfileTodo);
 }
 
 export async function signOutAction() {
@@ -69,7 +69,7 @@ export async function register(user: Omit<IUser, "id" | "todos">) {
   } catch (error: any) {
     console.log(error);
 
-    const errObj = { error: true, errorMessage: "" };
+    const errObj = {error: true, errorMessage: ""};
 
     if (error.code === "23505") {
       errObj.errorMessage = "User is extst";
@@ -83,4 +83,15 @@ export async function createHashPassword(password: string) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   return hashedPassword;
+}
+
+export async function getUser(email: string): Promise<IUser | undefined> {
+  try {
+    const user = await sql<IUser>`SELECT * FROM users WHERE email=${email}`;
+
+    return user.rows[0];
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
+  }
 }

@@ -2,20 +2,19 @@
 
 import { Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../lib/hooks/useStore";
-import { ITodo } from "../../lib/stores/interfaces/todoStore.interface";
 import TodoFilterButtons from "../TodoFilterButtons";
 import TodoInput from "../TodoInput";
 import TodoList from "../TodoList";
+import { useEffect } from "react";
+import { useStore } from "../../lib/hooks/useStore";
 
-interface ITodoProps {
-  todosFromServer: Array<ITodo>;
-}
-
-const Todo = observer(({ todosFromServer }: ITodoProps) => {
+const Todo = observer(() => {
   const todoStore = useStore("todoStore");
+  const accountStore = useStore("accountStore");
 
-  todoStore.setTodosFromServer(todosFromServer);
+  useEffect(() => {
+    if (accountStore.user) todoStore.setTodosFromServer(accountStore.user?.todos);
+  }, []);
 
   return (
     <Box display={"flex"} sx={{ flexDirection: "column", height: "100%", maxHeight: "100%" }}>

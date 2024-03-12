@@ -1,7 +1,6 @@
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import CloudIcon from "@mui/icons-material/Cloud";
-import ListAltIcon from "@mui/icons-material/ListAlt";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import routes from "../../lib/routes";
@@ -12,11 +11,6 @@ const linksProjectPages: Array<ISideBarLinkProps> = [
     name: "Account",
     href: routes.accountProfile,
     icon: <AccountBoxIcon />,
-  },
-  {
-    name: "Todo List",
-    href: routes.todo,
-    icon: <ListAltIcon />,
   },
   {
     name: "Market",
