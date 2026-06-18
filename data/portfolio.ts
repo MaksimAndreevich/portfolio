@@ -93,7 +93,7 @@ export const experience = [
     company: "SCDB",
     role: "Fullstack Developer",
     period: "Mar 2025 — Aug 2025",
-    location: "Moscow / scdb-landing-001e.twc1.net",
+    location: "Moscow / scdb-landing-6a70.twc1.net",
     summary: "Система управления данными образовательных учреждений РФ: Go API, PostgreSQL, Next.js UI, парсинг XML 1+ ГБ и demo-режим.",
     highlights: [
       "Спроектировал микросервисную архитектуру с REST API на Gin, rate limiting и repository pattern.",
@@ -121,7 +121,7 @@ export const projects = [
   {
     title: "SCDB",
     type: "Data platform",
-    href: "http://scdb-landing-001e.twc1.net",
+    href: "https://scdb-landing-6a70.twc1.net/",
     stack: ["Go", "Gin", "Next.js", "PostgreSQL", "Docker", "MUI"],
     description: "Платформа поиска и анализа образовательных учреждений РФ с обработкой больших XML-файлов и demo-режимом.",
   },
